@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:arxiv.org)",
+      "WebFetch(domain:ar5iv.org)",
+      "WebFetch(domain:ar5iv.labs.arxiv.org)",
+      "WebFetch(domain:cds.cern.ch)",
+      "WebFetch(domain:link.springer.com)",
+      "WebFetch(domain:iopscience.iop.org)",
+      "WebSearch"
+    ]
+  }
+}
