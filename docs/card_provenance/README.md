@@ -52,6 +52,26 @@ inventing a plausible-but-wrong resolution number.
   `..._uncertainty.tcl` (and CMS) with cited values + uncertainty handles, and
   draft the JINST manuscript from the provenance tables.
 
+## Status — run 1 (Phases 1+2 complete)
+
+The muon momentum-resolution **pilot** (`pilot_muon_resolution.md`,
+`provenance.yaml`) and a full **run 1** over all remaining measured blocks are
+done. All **26 measured blocks** (13 ATLAS + 13 CMS, ~140 coefficients) were
+source-mapped, extracted, and **independently verified** (every block
+`ACCEPT` / `ACCEPT_WITH_CORRECTIONS`). Artifacts:
+
+| File | Contents |
+|------|----------|
+| `run1_provenance.json` | Machine-readable: 26 extractions + 26 verifications, per-coefficient source/locator/value/uncertainty/proposed-revision. |
+| `findings_summary.md` | Human-readable per-block tables (card vs. measured, verdict, proposed). |
+| `manuscript/delphes_cards_jinst.tex` / `.pdf` | JINST-style write-up of method + findings. |
+
+Headline: ~88 coefficients are inconsistent with their source and carry a
+proposed revision (notably track momentum resolution ~3× too pessimistic in both
+cards, and the electron resolution using the wrong tracker-like form). **No live
+card value has been changed** — proposed revisions await review before the
+Phase-3 baseline/uncertainty cards are written.
+
 ## Card categories that need citable values
 
 From the Phase-0 audit, the parameterizations group into:
