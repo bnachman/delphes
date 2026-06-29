@@ -89,7 +89,16 @@ HL-LHC, and Phase-II variants are out of scope. Parameters are tagged as
 and a verified source --- e.g.\ a resolution term or a tagging efficiency) or as
 a \emph{choice} (an analysis convention such as a jet radius, isolation cone, or
 $p_\mathrm{T}$ threshold, which is documented but assigned no uncertainty). Only
-measured parameters enter the provenance records.
+measured parameters enter the provenance records. \emph{Sources are standardized
+to Run~2 (13~TeV):} blocks initially mapped to Run-1 (7--8~TeV) papers were
+re-sourced to their 13~TeV equivalents (e.g.\ electron resolution to the Run-2
+energy calibration~\cite{atlas-egammacal,cms-egamma}, b-tagging to the Run-2
+measurement~\cite{cms-btag}). For a few detector-intrinsic quantities --- the CMS
+tracker resolution/efficiency and the hadronic-calorimeter terms --- no
+peer-reviewed Run-2 measurement exists (the tracker was physically unchanged and
+Run-2 analyses cite the Run-1 tracker paper); these retain the Run-1/test-beam
+value with a Run-2 corroborating citation and an explicit caveat, rather than
+substitute a number that was never published.
 
 \subsection{The provenance pipeline}
 The work proceeds in four phases:
@@ -258,7 +267,7 @@ calorimeter resolution is essentially flat.
 \caption{Electron fractional resolution. The card (dashed) applies the tracking
 form of Eq.~\ref{eq:momres}, whose $b\,p_\mathrm{T}$ term makes the resolution
 diverge at high $p_\mathrm{T}$; the measured CMS electron resolution~\cite{cms-egamma}
-(bands) is approximately flat at $\sim$1.6--1.7\% (barrel) and $\sim$4.1--4.5\%
+(bands) is approximately flat at $\sim$2\% (barrel) and $\sim$4--5\%
 (endcap). The $b\,p_\mathrm{T}$ term is a copy of the charged-hadron tracker
 coefficients and should be removed for electrons.}
 \label{fig:eres}
@@ -306,9 +315,9 @@ Full list with uncertainties in \texttt{run1\_provenance.json}.}\label{tab:propo
 \quad $a,b$ & $0.5$--$1.5$         & $0.10,\,17$ & $0.015,\,4.2$\\
 \quad $a,b$ & $1.5$--$2.5$         & $0.25,\,31$ & $0.023,\,9.5$\\
 \midrule
-\multicolumn{4}{@{}l}{\footnotesize Electron mom.\ res.\ (constant term; remove $b\,p_\mathrm{T}$)}\\
-\quad $a$ (ATLAS) & $|\eta|\!\le\!0.5$ & $0.03$ & $0.007$\\
-\quad $a$ (CMS)   & $|\eta|\!\le\!0.5$ & $0.03$ & $0.017$\\
+\multicolumn{4}{@{}l}{\footnotesize Electron mom.\ res.\ (constant term; remove $b\,p_\mathrm{T}$; Run-2 sources)}\\
+\quad $a$ (ATLAS) & $|\eta|\!\le\!0.5$ & $0.03$ & $0.010$\\
+\quad $a$ (CMS)   & $|\eta|\!\le\!0.5$ & $0.03$ & $0.020$\\
 \midrule
 \multicolumn{4}{@{}l}{\footnotesize Efficiency plateaus}\\
 \quad ATLAS ch.-had.\ track & central, high $p_\mathrm{T}$ & $0.95$ & $0.86$\\
@@ -372,13 +381,17 @@ detector-modelling systematic for the first time.
 \bibitem{atlas-tracking} ATLAS Collaboration, ``Charged-particle distributions
   in $\sqrt{s}=13$~TeV $pp$ interactions measured with the ATLAS detector,''
   Phys.\ Lett.\ B \textbf{758} (2016) 67, arXiv:1602.01633.
-\bibitem{cms-egamma} CMS Collaboration, ``Performance of electron reconstruction
-  and selection with the CMS detector in proton-proton collisions at
-  $\sqrt{s}=8$~TeV,'' JINST \textbf{10} (2015) P06005, arXiv:1502.02701.
+\bibitem{cms-egamma} CMS Collaboration, ``Electron and photon reconstruction and
+  identification with the CMS experiment at the CERN LHC,'' JINST \textbf{16}
+  (2021) P05014, arXiv:2012.06888. (Run-2, 13~TeV; replaces the Run-1
+  arXiv:1502.02701.)
 \bibitem{atlas-egamma} ATLAS Collaboration, ``Electron reconstruction and
   identification in the ATLAS experiment using the 2015 and 2016 LHC $pp$
   collision data at $\sqrt{s}=13$~TeV,'' Eur.\ Phys.\ J.\ C \textbf{79} (2019)
   639, arXiv:1902.04655.
+\bibitem{atlas-egammacal} ATLAS Collaboration, ``Electron and photon energy
+  calibration with the ATLAS detector using LHC Run~2 data,'' JINST \textbf{19}
+  (2024) P02009, arXiv:2309.05471. (Run-2 electron resolution.)
 \bibitem{atlas-ecal} ATLAS Collaboration (M.~Aharrouche \emph{et al.}), ``Energy
   linearity and resolution of the ATLAS electromagnetic barrel calorimeter in an
   electron test-beam,'' Nucl.\ Instrum.\ Meth.\ A \textbf{597} (2008) 178,

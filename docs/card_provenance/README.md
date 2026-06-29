@@ -67,6 +67,7 @@ source-mapped, extracted, and **independently verified** (every block
 | `manuscript/delphes_cards_jinst.tex` / `.pdf` | JINST-style write-up (with figures) of method + findings. |
 | `manuscript/make_plots.py` | Regenerates the manuscript figures. |
 | `review_highly_discrepant.md` | Prioritized checklist of the biggest discrepancies, with source locators. |
+| `run2_resourcing.md` | Run-2 (13 TeV) re-sourcing pass: per-block Run-2 source, or an explicit "no Run-2 source" note where the Run-1 value is kept with a caveat. |
 | `generate_cards.py` | Generates the Phase-3 cards from the verified revisions. |
 
 Headline: ~88 coefficients are inconsistent with their source and carry a

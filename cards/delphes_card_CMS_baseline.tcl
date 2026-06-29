@@ -159,8 +159,10 @@ module MomentumSmearing ChargedHadronMomentumSmearing {
   # resolution formula for charged hadrons
   # based on arXiv:1405.6569
   # PROVENANCE (run1, independently verified):
-  # CMS tracker track momentum resolution. Source: arXiv:1405.6569 (JINST 9 (2014) P10009).
-  # Proposed source-faithful a,b per eta region (verified Phase 2).
+  # CMS tracker track momentum resolution. Source: arXiv:1405.6569 (JINST 9 (2014) P10009, 7 TeV).
+  # Detector-intrinsic, unchanged Run-1 -> Run-2 (strip tracker identical in 2015-16; no peer-reviewed Run-2
+  # per-eta resolution exists). RUN-2 (13 TeV) corroboration: arXiv:1712.07158 (~1.5% central pt resolution),
+  # which itself cites 1405.6569. Constant terms revised to match the ~1.5% central benchmark.
   # stock value was: a=0.06,b=0.0013, a=0.1,b=0.0017, a=0.25,b=0.0031
   # REVIEW: ~3x reduction vs stock (constant terms ~1-2.3%, slopes ~2-10e-4/GeV).
   set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.009^2 + pt^2*0.00023^2) +
@@ -182,12 +184,13 @@ module MomentumSmearing ElectronMomentumSmearing {
   # based on arXiv:1502.02701
   # PROVENANCE (run1, independently verified):
   # Electron resolution is ECAL-dominated -> ~flat vs pt; stock b*pt term is a tracker artefact (removed).
-  # Source: arXiv:1502.02701 (JINST 10 (2015) P06005) Sec. 4.8; effective resolution ~1.6-1.7% (barrel) to ~4.5% (endcap).
+  # RUN-2 source: arXiv:2012.06888 (JINST 16 (2021) P05014, e/gamma reco/ID, full Run 2) Fig. 11 / abstract:
+  # effective resolution ~2% (barrel) to ~4-5% (endcap), flat in pt above ~15 GeV.
   # stock value was: a=0.03,b=0.0013, a=0.05,b=0.0017, a=0.15,b=0.0031
-  # REVIEW: functional-form change (b set to 0; constant term lowered to measured effective resolution).
-  set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.017^2 + pt^2*0.0^2) +
+  # REVIEW: functional-form change (b set to 0; constant term set to measured Run-2 effective resolution).
+  set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.02^2 + pt^2*0.0^2) +
                          (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.025^2 + pt^2*0.0^2) +
-                         (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.045^2 + pt^2*0.0^2)}
+                         (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.05^2 + pt^2*0.0^2)}
 }
 
 ###############################

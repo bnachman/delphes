@@ -155,10 +155,13 @@ module MomentumSmearing ChargedHadronMomentumSmearing {
   # resolution formula for charged hadrons
   # PROVENANCE (run1, independently verified):
   # ATLAS inner-detector track momentum resolution, sigma_ID/pt = a(eta) (+) b(eta)*pt.
-  # Source: arXiv:1404.4562 (EPJC 74 (2014) 3130) Eq.(2), Figs. 17-18 (plot-read, muon-ID tracks).
+  # Form: arXiv:1404.4562 Eq.(2), Figs. 17-18 (ID-only slope b). RUN-2 (13 TeV) corroboration of the
+  # constant terms: arXiv:1603.05598 (EPJC 76 (2016) 292) Sec. 8.2 (central 1.7-2.3%, endcap 2.3-2.9%)
+  # and arXiv:2012.00578 (EPJC 81 (2021) 578) Fig. 2 (high-pt). No Run-2 paper tabulates (a,b) per eta;
+  # constant terms are figure/prose reads. NB charged hadrons are ID-only -> ID slope b used (not combined-muon).
   # stock value was: a=0.06,b=0.0013, a=0.1,b=0.0017, a=0.25,b=0.0031
   # this card: +1 sigma (x1.15) on the baseline central values.
-  # REVIEW: ~3x reduction vs stock. Measured anchors are muon-ID tracks; confirm intended hadron-specific term before adopting.
+  # REVIEW: ~3x reduction vs stock. Run-2 muon papers corroborate; confirm ID-only b (3.9e-4) vs combined-muon b (1e-4) for hadrons.
   set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.01725^2 + pt^2*0.0004485^2) +
                          (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.02875^2 + pt^2*0.0007015^2) +
                          (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.046^2 + pt^2*0.001035^2)}
@@ -176,14 +179,15 @@ module MomentumSmearing ElectronMomentumSmearing {
 
   # resolution formula for electrons
   # PROVENANCE (run1, independently verified):
-  # Electron resolution is ECAL-dominated -> ~flat vs pt; the stock b*pt term is a tracker artefact (removed).
-  # Source: arXiv:1902.04655 / 1407.5063 (ATLAS e/gamma); effective resolution ~0.7-1.5% (barrel-endcap).
+  # Electron resolution is EM-calorimeter-dominated -> ~flat vs pt; the stock b*pt term is a tracker artefact (removed).
+  # RUN-2 source: arXiv:2309.05471 (JINST 19 (2024) P02009, e/gamma energy calibration, full Run 2) Sec. 5.1, Sec. 7, Fig. 16(b):
+  # effective constant term ~1.0% (barrel) to ~1.8% (endcap). NB the uncalibrated 1.37<|eta|<1.52 crack lies inside the middle bin.
   # stock value was: a=0.03,b=0.0013, a=0.05,b=0.0017, a=0.15,b=0.0031
   # this card: +1 sigma (x1.15) on the baseline central values.
-  # REVIEW: functional-form change (b set to 0; constant term lowered). Calorimeter resolution, not tracker.
-  set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.00805^2 + pt^2*0.0^2) +
+  # REVIEW: functional-form change (b set to 0; constant term lowered to measured Run-2 effective resolution).
+  set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.0115^2 + pt^2*0.0^2) +
                          (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.0138^2 + pt^2*0.0^2) +
-                         (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.01725^2 + pt^2*0.0^2)}
+                         (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.0207^2 + pt^2*0.0^2)}
 }
 
 ###############################
