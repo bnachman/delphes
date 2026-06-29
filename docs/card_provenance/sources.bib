@@ -34,3 +34,73 @@
 @techreport{ATLAS:tau_pub2015045,
   note = {Cited in delphes_card_ATLAS.tcl (TauTagging, medium WP) as ATL-PHYS-PUB-2015-045}
 }
+
+% ---------------------------------------------------------------------------
+% Sources VERIFIED in Phase 2 (independent-agent confirmed against the source).
+% Muon momentum-resolution block (pilot).
+% ---------------------------------------------------------------------------
+
+@article{ATLAS:muonperf13TeV,
+  author       = {{ATLAS Collaboration}},
+  title        = {Muon reconstruction performance of the {ATLAS} detector in proton--proton collision data at $\sqrt{s}=13$~{TeV}},
+  journal      = {Eur. Phys. J. C},
+  volume       = {76},
+  pages        = {292},
+  year         = {2016},
+  doi          = {10.1140/epjc/s10052-016-4120-y},
+  eprint       = {1603.05598},
+  archivePrefix = {arXiv},
+  note         = {13 TeV combined-muon resolution anchors (Sec. 8.2, Figs. 11-12): central 1.7%/2.3%, endcap 2.3%/2.9% (J/psi, Z); |eta|>2.2 -> 2.9%. VERIFIED.}
+}
+
+@article{ATLAS:muonres7TeV,
+  author       = {{ATLAS Collaboration}},
+  title        = {Muon reconstruction efficiency and momentum resolution of the {ATLAS} experiment in proton--proton collisions at $\sqrt{s}=7$~{TeV} in 2010},
+  journal      = {Eur. Phys. J. C},
+  volume       = {74},
+  pages        = {3130},
+  year         = {2014},
+  doi          = {10.1140/epjc/s10052-014-3130-x},
+  eprint       = {1404.4562},
+  archivePrefix = {arXiv},
+  note         = {Functional form sigma_ID/pt = a_ID(eta) (+) b_ID(eta)*pt, Eq. (2) -- identical to Delphes sqrt(a^2+(b*pt)^2); sigma/pt vs pt curves in Figs. 17-18. No liftable (a,b) per-eta table. VERIFIED.}
+}
+
+@article{ATLAS:muoneffRun2,
+  author       = {{ATLAS Collaboration}},
+  title        = {Muon reconstruction and identification efficiency in {ATLAS} using the full Run~2 $pp$ collision data set at $\sqrt{s}=13$~{TeV}},
+  journal      = {Eur. Phys. J. C},
+  volume       = {81},
+  pages        = {578},
+  year         = {2021},
+  doi          = {10.1140/epjc/s10052-021-09233-2},
+  eprint       = {2012.00578},
+  archivePrefix = {arXiv},
+  note         = {High-pt (up to ~TeV) q/p resolution vs pt, barrel/endcap (Fig. 2). Used for the b (pt) term shape. VERIFIED (plot-read).}
+}
+
+@article{CMS:muonperf13TeV,
+  author       = {{CMS Collaboration}},
+  title        = {Performance of the {CMS} muon detector and muon reconstruction with proton-proton collisions at $\sqrt{s}=13$~{TeV}},
+  journal      = {JINST},
+  volume       = {13},
+  pages        = {P06015},
+  year         = {2018},
+  doi          = {10.1088/1748-0221/13/06/P06015},
+  eprint       = {1804.04528},
+  archivePrefix = {arXiv},
+  note         = {Resolution floors (Sec. 7.1): 1% barrel / 3% endcap up to ~100 GeV, ~5% uncertainty. High-pt barrel term (Sec. 7.2, Fig. 9): cosmic-ray RMS R(q/pt) vs pt, |eta|<0.9. VERIFIED.}
+}
+
+@article{CMS:muonperf7TeV,
+  author       = {{CMS Collaboration}},
+  title        = {Performance of {CMS} muon reconstruction in $pp$ collision events at $\sqrt{s}=7$~{TeV}},
+  journal      = {JINST},
+  volume       = {7},
+  pages        = {P10002},
+  year         = {2012},
+  doi          = {10.1088/1748-0221/7/10/P10002},
+  eprint       = {1206.4071},
+  archivePrefix = {arXiv},
+  note         = {Run-1 supplement: sigma/pt vs eta (Fig. 21) and high-pt cosmic resolution (Fig. 24, Table 4); endcap "up to ~6%" at intermediate pt.}
+}

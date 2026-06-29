@@ -185,6 +185,17 @@ module MomentumSmearing MuonMomentumSmearing {
   # set ResolutionFormula {resolution formula as a function of eta and pt}
 
   # resolution formula for muons
+  #
+  # Provenance (see docs/card_provenance/, verified Phase 2):
+  #   Floors -- arXiv:1804.04528 (JINST 13 (2018) P06015) Sec. 7.1:
+  #     "resolution for muons with momenta up to approximately 100 GeV is 1% in the barrel
+  #      and 3% in the endcap" (uncertainty ~5% of value).
+  #   High-pt barrel term -- same paper Sec. 7.2 / Fig. 9 (cosmic-ray RMS of R(q/pt) vs pt, |eta|<0.9).
+  #   Run-1 supplement -- arXiv:1206.4071 (JINST 7 (2012) P10002) Figs. 21, 24, Table 4.
+  #   NOTE: CMS binning is barrel<0.9 / overlap 0.9-1.2 / endcap 1.2-2.4; Delphes 0.5/1.5 bins
+  #     are a Delphes choice. Fig. 9 is barrel-only -> endcap high-pt term is unvalidated.
+  #   FLAG (endcap floor, 1.5<|eta|<=2.5): a=0.025 -> 2.5% is mildly OPTIMISTIC vs CMS-quoted 3%.
+  #     Left unchanged in this pass; candidate revision deferred to baseline/uncertainty cards (Phase 3).
   set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.01^2 + pt^2*1.0e-4^2) +
                          (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.015^2 + pt^2*1.5e-4^2) +
                          (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.025^2 + pt^2*3.5e-4^2)}

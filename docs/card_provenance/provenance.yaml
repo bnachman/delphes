@@ -1,0 +1,385 @@
+# Per-parameter provenance records (see provenance_schema.md).
+#
+# This file is the structured data store that backs the citable baseline +
+# uncertainty cards and the JINST paper. One entry per coefficient.
+#
+# Status flow: audited -> sourced -> extracted -> verified -> applied.
+# A record may only advance to `applied` once
+# `verification.verified_by_independent_agent` is true. Records whose
+# `matches_current` is false are surfaced for human review BEFORE any live card
+# value is changed (no silent overwrites).
+#
+# ============================================================================
+# BLOCK: Muon momentum resolution  (PILOT — first block taken end-to-end)
+# Form in both cards: sigma(pt)/pt = sqrt(a^2 + (b*pt)^2), three |eta| regions.
+# Source-mapped + extracted + independently re-verified (two cold verifier
+# agents, both ACCEPT). Live card values are UNCHANGED in this pass; flagged
+# discrepancies are recorded for the Phase-3 baseline/uncertainty cards.
+# ============================================================================
+
+records:
+
+  # ----------------------- ATLAS muon resolution --------------------------
+  # Functional form is verbatim ATLAS: sigma_ID/pt = a_ID(eta) (+) b_ID(eta)*pt
+  # (quadratic sum), arXiv:1404.4562 Eq.(2). 13 TeV absolute anchors from
+  # arXiv:1603.05598 Sec 8.2 (combined muons). NB: no ATLAS paper publishes the
+  # (a,b) coefficients as a liftable per-eta table; ATLAS eta boundaries are
+  # 1.05/1.7/2.0/2.5, so the Delphes 0.5 and 1.5 boundaries are a Delphes choice.
+
+  - param_id: ATLAS.MuonMomentumSmearing.eta0_05.a
+    card: delphes_card_ATLAS.tcl
+    module: MuonMomentumSmearing
+    quantity: track_momentum_resolution_const_term
+    object: muon
+    eta_min: 0.0
+    eta_max: 0.5
+    functional_form: "sqrt(a^2 + (b*pt)^2)"
+    role: a
+    current_value: 0.010
+    current_uncertainty: null
+    source:
+      collaboration: ATLAS
+      title: "Muon reconstruction performance of the ATLAS detector in pp collisions at sqrt(s)=13 TeV"
+      arxiv: "1603.05598"
+      journal: "Eur. Phys. J. C 76 (2016) 292"
+      year: 2016
+      locator: "Sec. 8.2 / Figs. 11-12 + abstract: central combined-muon pt resolution 1.7% (J/psi) and 2.3% (Z)"
+    form_source:
+      arxiv: "1404.4562"
+      journal: "Eur. Phys. J. C 74 (2014) 3130"
+      locator: "Eq. (2) (functional form); Figs. 17-18 (sigma/pt vs pt by eta)"
+    extracted_value: 0.017          # measured central CB floor ~1.7% (J/psi scale)
+    extracted_uncertainty: 0.05     # relative; ~5%-level resolution syst. (ATLAS scale syst ~0.05% abs)
+    uncertainty_type: total
+    extraction_method: "ATLAS-measured central CB resolution 1.7% (J/psi <pt>~10 GeV) / 2.3% (Z <pt>~45 GeV); Delphes a=0.010 -> ~1.0-1.1% across this range"
+    matches_current: false          # FLAG: Delphes 1.0% too optimistic vs measured 1.7-2.3% (CB)
+    verification:
+      verified_by_independent_agent: true
+      verifier_locator_agrees: true
+      notes: "Cold verifier confirmed 1.7%/2.3% central CB verbatim (Sec 8.2, abstract). Caveat: anchors are combined muons; Delphes single-Gaussian maps most directly to ID-only Eq.(2). Direction of discrepancy robust either way."
+    status: verified
+
+  - param_id: ATLAS.MuonMomentumSmearing.eta0_05.b
+    card: delphes_card_ATLAS.tcl
+    module: MuonMomentumSmearing
+    quantity: track_momentum_resolution_pt_term
+    object: muon
+    eta_min: 0.0
+    eta_max: 0.5
+    functional_form: "sqrt(a^2 + (b*pt)^2)"
+    role: b
+    current_value: 1.0e-4
+    current_uncertainty: null
+    source:
+      collaboration: ATLAS
+      title: "Muon reconstruction and identification efficiency in ATLAS using the full Run 2 pp collision data set at sqrt(s)=13 TeV"
+      arxiv: "2012.00578"
+      journal: "Eur. Phys. J. C 81 (2021) 578"
+      year: 2021
+      locator: "Fig. 2 (q/p resolution vs pt up to ~TeV, barrel |eta|<1.05)"
+    extracted_value: 1.0e-4
+    extracted_uncertainty: null     # high-pt term read off curve; ~1 percentage-pt plot-read uncertainty
+    uncertainty_type: spread
+    extraction_method: "Delphes gives ~10% at 1 TeV in barrel; consistent with 2012.00578 Fig.2 barrel curve and 1404.4562 Fig.17"
+    matches_current: true
+    verification:
+      verified_by_independent_agent: true
+      verifier_locator_agrees: true
+      notes: "High-pt barrel magnitude (~10% at 1 TeV) consistent; b-term shape matches ATLAS a(+)b*pt form."
+    status: verified
+
+  - param_id: ATLAS.MuonMomentumSmearing.eta05_15.a
+    card: delphes_card_ATLAS.tcl
+    module: MuonMomentumSmearing
+    quantity: track_momentum_resolution_const_term
+    object: muon
+    eta_min: 0.5
+    eta_max: 1.5
+    functional_form: "sqrt(a^2 + (b*pt)^2)"
+    role: a
+    current_value: 0.015
+    current_uncertainty: null
+    source:
+      collaboration: ATLAS
+      title: "Muon reconstruction performance of the ATLAS detector in pp collisions at sqrt(s)=13 TeV"
+      arxiv: "1603.05598"
+      journal: "Eur. Phys. J. C 76 (2016) 292"
+      year: 2016
+      locator: "No ATLAS bin matches 0.5-1.5; region straddles barrel (1.05) + transition (1.05-1.7). Bracketed by central 1.7% and worse transition resolution."
+    extracted_value: null           # no direct measurement at this binning
+    extracted_uncertainty: null
+    uncertainty_type: null
+    extraction_method: "interpolation between ATLAS barrel and transition regions; transition (1.05-1.7) is the worst-resolved region (1404.4562)"
+    matches_current: null           # cannot determine — no matching ATLAS bin
+    verification:
+      verified_by_independent_agent: true
+      verifier_locator_agrees: true
+      notes: "Confirmed: ATLAS does not report resolution at the 0.5/1.5 boundaries; this coefficient is a Delphes interpolation, not a measured value."
+    status: verified
+
+  - param_id: ATLAS.MuonMomentumSmearing.eta05_15.b
+    card: delphes_card_ATLAS.tcl
+    module: MuonMomentumSmearing
+    quantity: track_momentum_resolution_pt_term
+    object: muon
+    eta_min: 0.5
+    eta_max: 1.5
+    functional_form: "sqrt(a^2 + (b*pt)^2)"
+    role: b
+    current_value: 1.5e-4
+    current_uncertainty: null
+    source:
+      collaboration: ATLAS
+      title: "Muon reconstruction efficiency and momentum resolution of the ATLAS experiment in pp collisions at sqrt(s)=7 TeV in 2010"
+      arxiv: "1404.4562"
+      journal: "Eur. Phys. J. C 74 (2014) 3130"
+      year: 2014
+      locator: "Figs. 17-18 (transition-region curves); no liftable coefficient table"
+    extracted_value: null
+    extracted_uncertainty: null
+    uncertainty_type: null
+    extraction_method: "interpolation; transition region high-pt degradation between barrel and endcap"
+    matches_current: null
+    verification:
+      verified_by_independent_agent: true
+      verifier_locator_agrees: true
+      notes: "Interpolated coefficient; no direct measured anchor at this eta binning."
+    status: verified
+
+  - param_id: ATLAS.MuonMomentumSmearing.eta15_25.a
+    card: delphes_card_ATLAS.tcl
+    module: MuonMomentumSmearing
+    quantity: track_momentum_resolution_const_term
+    object: muon
+    eta_min: 1.5
+    eta_max: 2.5
+    functional_form: "sqrt(a^2 + (b*pt)^2)"
+    role: a
+    current_value: 0.025
+    current_uncertainty: null
+    source:
+      collaboration: ATLAS
+      title: "Muon reconstruction performance of the ATLAS detector in pp collisions at sqrt(s)=13 TeV"
+      arxiv: "1603.05598"
+      journal: "Eur. Phys. J. C 76 (2016) 292"
+      year: 2016
+      locator: "Sec. 8.2 / abstract: endcap CB pt resolution 2.3% (J/psi), 2.9% (Z); |eta|>2.2 -> 2.9% for Z->mumu"
+    extracted_value: 0.025
+    extracted_uncertainty: 0.05      # relative, ~5%-level
+    uncertainty_type: total
+    extraction_method: "Delphes a=0.025 -> 2.5%/2.95% at J/psi/Z scales; matches measured 2.3%/2.9% endcap closely"
+    matches_current: true
+    verification:
+      verified_by_independent_agent: true
+      verifier_locator_agrees: true
+      notes: "Confirmed verbatim: endcap 2.3%/2.9% and |eta|>2.2 -> 2.9% (abstract + Sec 8.2). Delphes endcap floor matches well."
+    status: verified
+
+  - param_id: ATLAS.MuonMomentumSmearing.eta15_25.b
+    card: delphes_card_ATLAS.tcl
+    module: MuonMomentumSmearing
+    quantity: track_momentum_resolution_pt_term
+    object: muon
+    eta_min: 1.5
+    eta_max: 2.5
+    functional_form: "sqrt(a^2 + (b*pt)^2)"
+    role: b
+    current_value: 3.5e-4
+    current_uncertainty: null
+    source:
+      collaboration: ATLAS
+      title: "Muon reconstruction efficiency and momentum resolution of the ATLAS experiment in pp collisions at sqrt(s)=7 TeV in 2010"
+      arxiv: "1404.4562"
+      journal: "Eur. Phys. J. C 74 (2014) 3130"
+      year: 2014
+      locator: "Eq.(2) note (b_MS ~0.4 TeV^-1 in CSC region |eta|>2.0) + Figs. 17-18; high-pt curve in 2012.00578 Fig. 2 (endcap)"
+    extracted_value: 3.5e-4
+    extracted_uncertainty: null
+    uncertainty_type: spread
+    extraction_method: "larger b encodes faster endcap high-pt degradation; consistent with ATLAS b_MS~0.4 TeV^-1 and 1/tan^2(theta) enhancement for |eta|>2.0"
+    matches_current: true
+    verification:
+      verified_by_independent_agent: true
+      verifier_locator_agrees: true
+      notes: "Direction/magnitude consistent. Caveat: ATLAS uses pt/tan^2(theta) for |eta|>2.0 (Eq.2 variant) which Delphes' simple form does not replicate; endcap high-pt (1 TeV) point not directly measured."
+    status: verified
+
+  # ------------------------- CMS muon resolution --------------------------
+  # Floors from arXiv:1804.04528 Sec 7.1 ("1% barrel / 3% endcap up to ~100 GeV",
+  # +-5%). High-pt (barrel) term from Sec 7.2 / Fig. 9 (cosmic rays, |eta|<0.9).
+  # CMS binning is barrel<0.9 / overlap 0.9-1.2 / endcap 1.2-2.4 -> Delphes
+  # 0.5/1.5/2.5 boundaries match nothing in the CMS paper.
+
+  - param_id: CMS.MuonMomentumSmearing.eta0_05.a
+    card: delphes_card_CMS.tcl
+    module: MuonMomentumSmearing
+    quantity: track_momentum_resolution_const_term
+    object: muon
+    eta_min: 0.0
+    eta_max: 0.5
+    functional_form: "sqrt(a^2 + (b*pt)^2)"
+    role: a
+    current_value: 0.010
+    current_uncertainty: null
+    source:
+      collaboration: CMS
+      title: "Performance of the CMS muon detector and muon reconstruction with proton-proton collisions at sqrt(s)=13 TeV"
+      arxiv: "1804.04528"
+      journal: "JINST 13 (2018) P06015"
+      year: 2018
+      locator: "Sec. 7.1: 'resolution for muons with momenta up to approximately 100 GeV is 1% in the barrel and 3% in the endcap'; uncertainty ~5% of value"
+    extracted_value: 0.010
+    extracted_uncertainty: 0.05      # relative, ~5% of value (quoted)
+    uncertainty_type: total
+    extraction_method: "barrel floor ~1% directly quoted; a=0.010 reproduces it exactly"
+    matches_current: true
+    verification:
+      verified_by_independent_agent: true
+      verifier_locator_agrees: true
+      notes: "Confirmed verbatim (Sec 7.1) incl. ~5% uncertainty (Sec 7.1). Barrel floor exact."
+    status: verified
+
+  - param_id: CMS.MuonMomentumSmearing.eta0_05.b
+    card: delphes_card_CMS.tcl
+    module: MuonMomentumSmearing
+    quantity: track_momentum_resolution_pt_term
+    object: muon
+    eta_min: 0.0
+    eta_max: 0.5
+    functional_form: "sqrt(a^2 + (b*pt)^2)"
+    role: b
+    current_value: 1.0e-4
+    current_uncertainty: null
+    source:
+      collaboration: CMS
+      title: "Performance of the CMS muon detector and muon reconstruction with proton-proton collisions at sqrt(s)=13 TeV"
+      arxiv: "1804.04528"
+      journal: "JINST 13 (2018) P06015"
+      year: 2018
+      locator: "Sec. 7.2 / Fig. 9 (RMS of R(q/pt) vs pt, cosmic rays, |eta|<0.9, inner-tracker-only)"
+    extracted_value: 1.0e-4
+    extracted_uncertainty: null      # plot-read; last bin large stat err (66 events pt>500 GeV)
+    uncertainty_type: spread
+    extraction_method: "Fig.9 tracker-only: ~1.0% @10 GeV, ~2.2% @100 GeV, ~9.8% @1 TeV. Delphes barrel gives ~10% @1 TeV (consistent); mildly optimistic at 100 GeV (1.4% vs ~2.2% cosmic curve, vs ~1% collision text)"
+    matches_current: true            # consistent within plot-read tolerance; minor optimism at 100 GeV noted
+    verification:
+      verified_by_independent_agent: true
+      verifier_locator_agrees: true
+      notes: "Fig.9 identity + magnitudes confirmed. Fig.9 is barrel-only (|eta|<0.9): does NOT certify endcap high-pt."
+    status: verified
+
+  - param_id: CMS.MuonMomentumSmearing.eta05_15.a
+    card: delphes_card_CMS.tcl
+    module: MuonMomentumSmearing
+    quantity: track_momentum_resolution_const_term
+    object: muon
+    eta_min: 0.5
+    eta_max: 1.5
+    functional_form: "sqrt(a^2 + (b*pt)^2)"
+    role: a
+    current_value: 0.015
+    current_uncertainty: null
+    source:
+      collaboration: CMS
+      title: "Performance of the CMS muon detector and muon reconstruction with proton-proton collisions at sqrt(s)=13 TeV"
+      arxiv: "1804.04528"
+      journal: "JINST 13 (2018) P06015"
+      year: 2018
+      locator: "No CMS bin matches 0.5-1.5 (straddles barrel/overlap/endcap split at 0.9-1.2); bracketed by barrel 1% and endcap 3%"
+    extracted_value: null
+    extracted_uncertainty: null
+    uncertainty_type: null
+    extraction_method: "interpolation between CMS barrel (~1%) and endcap (~3%)"
+    matches_current: null
+    verification:
+      verified_by_independent_agent: true
+      verifier_locator_agrees: true
+      notes: "Confirmed CMS reports no resolution at 0.5/1.5 boundaries; interpolated value, physically reasonable (1.5%)."
+    status: verified
+
+  - param_id: CMS.MuonMomentumSmearing.eta05_15.b
+    card: delphes_card_CMS.tcl
+    module: MuonMomentumSmearing
+    quantity: track_momentum_resolution_pt_term
+    object: muon
+    eta_min: 0.5
+    eta_max: 1.5
+    functional_form: "sqrt(a^2 + (b*pt)^2)"
+    role: b
+    current_value: 1.5e-4
+    current_uncertainty: null
+    source:
+      collaboration: CMS
+      title: "Performance of the CMS muon detector and muon reconstruction with proton-proton collisions at sqrt(s)=13 TeV"
+      arxiv: "1804.04528"
+      journal: "JINST 13 (2018) P06015"
+      year: 2018
+      locator: "Fig. 9 is |eta|<0.9 only; no overlap-region high-pt curve published"
+    extracted_value: null
+    extracted_uncertainty: null
+    uncertainty_type: null
+    extraction_method: "interpolation; no measured overlap-region high-pt anchor"
+    matches_current: null
+    verification:
+      verified_by_independent_agent: true
+      verifier_locator_agrees: true
+      notes: "Unvalidated by any published CMS curve at this eta; interpolation."
+    status: verified
+
+  - param_id: CMS.MuonMomentumSmearing.eta15_25.a
+    card: delphes_card_CMS.tcl
+    module: MuonMomentumSmearing
+    quantity: track_momentum_resolution_const_term
+    object: muon
+    eta_min: 1.5
+    eta_max: 2.5
+    functional_form: "sqrt(a^2 + (b*pt)^2)"
+    role: a
+    current_value: 0.025
+    current_uncertainty: null
+    source:
+      collaboration: CMS
+      title: "Performance of the CMS muon detector and muon reconstruction with proton-proton collisions at sqrt(s)=13 TeV"
+      arxiv: "1804.04528"
+      journal: "JINST 13 (2018) P06015"
+      year: 2018
+      locator: "Sec. 7.1: endcap resolution '3% ... up to ~100 GeV' (|eta| 1.2-2.4)"
+    extracted_value: 0.030          # CMS-quoted endcap ~3%
+    extracted_uncertainty: 0.05     # relative, ~5%
+    uncertainty_type: total
+    extraction_method: "CMS endcap floor ~3% vs Delphes a=0.025 -> 2.5%: Delphes mildly OPTIMISTIC at the endcap floor"
+    matches_current: false          # FLAG: Delphes 2.5% vs CMS-quoted 3% endcap
+    verification:
+      verified_by_independent_agent: true
+      verifier_locator_agrees: true
+      notes: "Endcap 3% confirmed (Sec 7.1). Delphes floor 0.025 slightly below; small discrepancy flagged for Phase-3 review."
+    status: verified
+
+  - param_id: CMS.MuonMomentumSmearing.eta15_25.b
+    card: delphes_card_CMS.tcl
+    module: MuonMomentumSmearing
+    quantity: track_momentum_resolution_pt_term
+    object: muon
+    eta_min: 1.5
+    eta_max: 2.5
+    functional_form: "sqrt(a^2 + (b*pt)^2)"
+    role: b
+    current_value: 3.5e-4
+    current_uncertainty: null
+    source:
+      collaboration: CMS
+      title: "Performance of the CMS muon detector and muon reconstruction with proton-proton collisions at sqrt(s)=13 TeV"
+      arxiv: "1804.04528"
+      journal: "JINST 13 (2018) P06015"
+      year: 2018
+      locator: "No published CMS endcap high-pt resolution curve (Fig. 9 is barrel-only)"
+    extracted_value: null
+    extracted_uncertainty: null
+    uncertainty_type: null
+    extraction_method: "endcap high-pt term unvalidated by any published CMS measurement"
+    matches_current: null
+    verification:
+      verified_by_independent_agent: true
+      verifier_locator_agrees: true
+      notes: "No CMS endcap high-pt anchor exists; coefficient cannot be confirmed against this source."
+    status: verified

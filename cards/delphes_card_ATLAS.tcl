@@ -178,6 +178,17 @@ module MomentumSmearing MuonMomentumSmearing {
 
   # set ResolutionFormula {resolution formula as a function of eta and pt}
   # resolution formula for muons
+  #
+  # Provenance (see docs/card_provenance/, verified Phase 2):
+  #   Functional form sqrt(a^2 + (b*pt)^2) is the ATLAS ID parametrization
+  #     sigma_ID/pt = a_ID(eta) (+) b_ID(eta)*pt -- arXiv:1404.4562 (EPJC 74 (2014) 3130) Eq.(2), Figs. 17-18.
+  #   13 TeV combined-muon anchors -- arXiv:1603.05598 (EPJC 76 (2016) 292) Sec. 8.2:
+  #     central 1.7% (J/psi) / 2.3% (Z); endcap 2.3% (J/psi) / 2.9% (Z); |eta|>2.2 -> 2.9%.
+  #   High-pt (~TeV) shape -- arXiv:2012.00578 (EPJC 81 (2021) 578) Fig. 2.
+  #   NOTE: ATLAS publishes no liftable (a,b) per-eta table; eta bins 0.5/1.5 are a Delphes choice
+  #     (ATLAS boundaries are 1.05/1.7/2.0). Resolution carries ~5%-level uncertainty.
+  #   FLAG (central floor, |eta|<=0.5): a=0.010 -> ~1.0% is OPTIMISTIC vs measured 1.7-2.3% (combined muons).
+  #     Left unchanged in this pass; candidate revision deferred to baseline/uncertainty cards (Phase 3).
   set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.01^2 + pt^2*1.0e-4^2) +
                          (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.015^2 + pt^2*1.5e-4^2) +
                          (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.025^2 + pt^2*3.5e-4^2)}
