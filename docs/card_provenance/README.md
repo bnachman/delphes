@@ -64,13 +64,28 @@ source-mapped, extracted, and **independently verified** (every block
 |------|----------|
 | `run1_provenance.json` | Machine-readable: 26 extractions + 26 verifications, per-coefficient source/locator/value/uncertainty/proposed-revision. |
 | `findings_summary.md` | Human-readable per-block tables (card vs. measured, verdict, proposed). |
-| `manuscript/delphes_cards_jinst.tex` / `.pdf` | JINST-style write-up of method + findings. |
+| `manuscript/delphes_cards_jinst.tex` / `.pdf` | JINST-style write-up (with figures) of method + findings. |
+| `manuscript/make_plots.py` | Regenerates the manuscript figures. |
+| `review_highly_discrepant.md` | Prioritized checklist of the biggest discrepancies, with source locators. |
+| `generate_cards.py` | Generates the Phase-3 cards from the verified revisions. |
 
 Headline: ~88 coefficients are inconsistent with their source and carry a
 proposed revision (notably track momentum resolution ~3× too pessimistic in both
-cards, and the electron resolution using the wrong tracker-like form). **No live
-card value has been changed** — proposed revisions await review before the
-Phase-3 baseline/uncertainty cards are written.
+cards, and the electron resolution using the wrong tracker-like form).
+
+## Phase-3 cards (v1)
+
+`generate_cards.py` emits four cards in `cards/`:
+
+| Card | Contents |
+|------|----------|
+| `delphes_card_{ATLAS,CMS}_baseline.tcl` | Stock card with the **momentum-resolution** revisions applied (charged-hadron, electron, muon); every change keeps the stock value in a `# stock value was:` comment and is tagged `REVIEW`. Other measured blocks are unchanged (their revisions are documented, pending review). |
+| `delphes_card_{ATLAS,CMS}_uncertainty.tcl` | The **+1σ "pessimistic detector"** variant: revised resolution coefficients scaled up by the block's relative uncertainty. Run baseline vs uncertainty for a one-sided systematic; mirror for the down side. |
+
+The original `delphes_card_{ATLAS,CMS}.tcl` are left untouched. The biggest
+changes are listed for review in `review_highly_discrepant.md`; Tier-2 items
+(efficiencies, calorimeter, tagging) are documented but **not** yet applied to
+the baseline cards.
 
 ## Card categories that need citable values
 

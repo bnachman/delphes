@@ -7,6 +7,8 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{float}
 \usepackage[hidelinks]{hyperref}
 \usepackage{xcolor}
 
@@ -147,7 +149,16 @@ corrected from EPJC to its actual JINST citation, with all physics values
 confirmed verbatim). Across $\sim\!140$ coefficients, about $88$ are
 flagged as inconsistent with their source (optimistic, pessimistic, wrong form,
 or unsourced) and carry a proposed revision; the remainder are confirmed
-consistent.
+consistent. Figure~\ref{fig:verdicts} shows the per-block breakdown.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{fig_verdicts.pdf}
+\caption{Verdict composition of every measured coefficient, by block, from the
+independent verification pass. ``Consistent'' coefficients reproduce their
+source; the others carry a proposed source-faithful revision.}
+\label{fig:verdicts}
+\end{figure}
 
 \begin{longtable}{@{}l l l@{}}
 \caption{Per-block verification outcome and headline finding. ``Verdict'' is the
@@ -214,7 +225,18 @@ excess against the inner-detector curves of~\cite{atlas-muonres7}
 (Figs.~17--18). A caveat the verifier flagged: the cleanest measured anchors are
 for muon-ID tracks, so part of the gap may reflect that the card term is meant
 to be hadron-specific; this is the one block where we recommend explicit user
-review rather than a drop-in replacement.
+review rather than a drop-in replacement. Figure~\ref{fig:momres} shows the gap.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{fig_momres.pdf}
+\caption{Charged-hadron track momentum resolution from Eq.~\ref{eq:momres}: the
+current card coefficients (dashed) versus the source-faithful values for CMS
+(\cite{cms-track}) and ATLAS (\cite{atlas-muonres7}), in the three card $\eta$
+regions. The card overestimates the resolution by roughly a factor of three over
+most of the $p_\mathrm{T}$ range.}
+\label{fig:momres}
+\end{figure}
 
 \paragraph{2.~Electron ``momentum'' resolution uses the wrong functional form.}
 Electron energy in both ATLAS and CMS is measured by the electromagnetic
@@ -226,7 +248,21 @@ $p_\mathrm{T}$. The verifiers classify the three $b$ coefficients per card as
 and should be removed for electrons, with the constant term reduced from
 $3$--$15\%$ to the measured $\sim$0.7--1.7\% (barrel--endcap), per the
 electron-performance papers~\cite{cms-egamma}. This is the most qualitatively
-incorrect block in either card.
+incorrect block in either card, and is illustrated in Fig.~\ref{fig:eres}: the
+card resolution \emph{rises} steeply with $p_\mathrm{T}$, whereas the measured
+calorimeter resolution is essentially flat.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.62\textwidth]{fig_eres.pdf}
+\caption{Electron fractional resolution. The card (dashed) applies the tracking
+form of Eq.~\ref{eq:momres}, whose $b\,p_\mathrm{T}$ term makes the resolution
+diverge at high $p_\mathrm{T}$; the measured CMS electron resolution~\cite{cms-egamma}
+(bands) is approximately flat at $\sim$1.6--1.7\% (barrel) and $\sim$4.1--4.5\%
+(endcap). The $b\,p_\mathrm{T}$ term is a copy of the charged-hadron tracker
+coefficients and should be removed for electrons.}
+\label{fig:eres}
+\end{figure}
 
 \paragraph{3.~Several efficiency plateaus are optimistic.}
 The ATLAS charged-hadron tracking efficiency plateau of $0.95$ (central) and
