@@ -29,7 +29,7 @@ with a caveat).
 
 | # | Quantity | Region | Card | Proposed | Source — locator | Note |
 |---|----------|--------|------|----------|------------------|------|
-| 8 | **CMS ECal** energy-shape $S$ / $C$ / $N$ | barrel+endcap | 0.11 / 0.008 / 0.40 | 0.028 / 0.003 / 0.12 | Run-1/test-beam + 1306.2016; **no Run-2 S/N/C exists** (2012.06888 gives only effective 2–5%) | **Subtle:** the η-prefactor (1+0.64η²) is a Delphes interpolation, *not* in the published numbers — don't double-count. Reconcile before changing. |
+| 8 | **CMS ECal** energy-shape $S$ / $C$ / $N$ | barrel+endcap | 0.11 / 0.008 / 0.40 | **keep (do not change)** | effective values; cross-check arXiv:2012.06888 Fig. 33 (1–3.4% low-brem, 2–5% all-brem) | **Resolved (re-exam):** the card S/N/C are *effective* (tuned to in-situ), NOT test-beam; the (1+0.64η²) prefactor is a Delphes construct; no Run-2 S/N/C exists. The card reproduces measured performance — **keep + caveat**. (The earlier 0.028 figure is the test-beam $S$, which would *underestimate* Run-2.) |
 | 8b | **CMS b-tag** c-mistag amplitude | — | 0.25 | ~0.15 | **Run-2:** arXiv:1712.07158 (DeepCSV Medium, Table 2/App. A) | card c-mistag ~40–75% too high above ~60 GeV (b-eff and light-mistag are fine) |
 | 9 | **CMS HCal** stochastic $S$ | \|η\|≤3.0 | 1.50 | 1.10 (with $C$=0.09) | PF arXiv:1706.04965 Eq.(2) (110%/√E⊕9%) + Run-2 corrob. 1910.00079 | detector-intrinsic; card 150%/5% ≠ published 110%/9% |
 | 10 | **ATLAS ch-had tracking eff** plateau | central / forward | 0.95 / 0.85 | 0.86 / 0.73 | arXiv:1602.01633 Fig. 2(c,d) | optimistic by 5–12% absolute |
