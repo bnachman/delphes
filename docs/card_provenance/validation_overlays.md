@@ -30,9 +30,9 @@ Legend: ✅ done (real-figure overlay) · 🔸 digitized re-plot (fallback) · �
 ## Flavour tagging
 | Block | Source figure | Status |
 |-------|---------------|--------|
-| ATLAS b-tag | 1907.05120 Fig. 8/9 | ⬜ |
+| ATLAS b-tag | 1907.05120 Fig. 8a | ✅ aux_overlay_onfigure_atlasbtag.pdf |
 | CMS b-tag | 1712.07158 Fig. 17 | ⬜ |
-| CMS tau | 1809.02816 Fig. 4 | ⬜ |
+| CMS tau | 1809.02816 Fig. 3 (ROC) | ✅ aux_overlay_onfigure_cmstau.pdf |
 
 ## Calorimeter
 Calo blocks are formula (S/N/C) rather than a single curve; validated by the
