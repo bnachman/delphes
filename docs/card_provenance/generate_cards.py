@@ -48,15 +48,8 @@ def formula(coeffs):
 # rel_unc, review flag, multiline source/comment.
 BLOCKS = [
   # ---------------- ATLAS ----------------
-  dict(card="ATLAS", module="ChargedHadronMomentumSmearing", review=True, runc=0.15,
-       source=["ATLAS inner-detector track momentum resolution, sigma_ID/pt = a(eta) (+) b(eta)*pt.",
-               "Form: arXiv:1404.4562 Eq.(2), Figs. 17-18 (ID-only slope b). RUN-2 (13 TeV) corroboration of the",
-               "constant terms: arXiv:1603.05598 (EPJC 76 (2016) 292) Sec. 8.2 (central 1.7-2.3%, endcap 2.3-2.9%)",
-               "and arXiv:2012.00578 (EPJC 81 (2021) 578) Fig. 2 (high-pt). No Run-2 paper tabulates (a,b) per eta;",
-               "constant terms are figure/prose reads. NB charged hadrons are ID-only -> ID slope b used (not combined-muon)."],
-       cur=[(0,0.5,0.06,1.3e-3),(0.5,1.5,0.10,1.7e-3),(1.5,2.5,0.25,3.1e-3)],
-       new=[(0,0.5,0.015,3.9e-4),(0.5,1.5,0.025,6.1e-4),(1.5,2.5,0.040,9.0e-4)],
-       note="REVIEW: ~3x reduction vs stock. Run-2 muon papers corroborate; confirm ID-only b (3.9e-4) vs combined-muon b (1e-4) for hadrons."),
+  # ATLAS ChargedHadronMomentumSmearing is handled by apply_user_tracking.py
+  # (physicist's fine eta-shape + per-eta uncertainty band), not here.
   dict(card="ATLAS", module="ElectronMomentumSmearing", review=True, runc=0.15,
        source=["Electron resolution is EM-calorimeter-dominated -> ~flat vs pt; the stock b*pt term is a tracker artefact (removed).",
                "RUN-2 source: arXiv:2309.05471 (JINST 19 (2024) P02009, e/gamma energy calibration, full Run 2) Sec. 5.1, Sec. 7, Fig. 16(b):",

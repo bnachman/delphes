@@ -94,12 +94,45 @@ module Efficiency ChargedHadronTrackingEfficiency {
   # add EfficiencyFormula {efficiency formula as a function of eta and pt}
 
   # tracking efficiency formula for charged hadrons
-  set EfficiencyFormula {                                                    (pt <= 0.1)   * (0.00) +
-                                           (abs(eta) <= 1.5) * (pt > 0.1   && pt <= 1.0)   * (0.70) +
-                                           (abs(eta) <= 1.5) * (pt > 1.0)                  * (0.95) +
-                         (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1   && pt <= 1.0)   * (0.60) +
-                         (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 1.0)                  * (0.85) +
-                         (abs(eta) > 2.5)                                                  * (0.00)}
+  # PROVENANCE (physicist hand-derivation, reference_ATLASUncerts.ipynb):
+  # Charged-hadron tracking efficiency, fine |eta| bins (plateau) x pt turn-on.
+  # Source: ATL-PHYS-PUB-2015-051 (Early ID Tracking Performance, 13 TeV) Fig 1a/1b (Loose).
+  # Dense-environment effects (PERF-2015-08) NOT included. Replaces the stock 2-bin 0.95/0.85.
+  set EfficiencyFormula {
+  ( (abs(eta) > 2.5) * (0.00) + 
+    (abs(eta) <= 0.20) * (0.910) + 
+    (abs(eta) > 0.20 && abs(eta) <= 0.40) * (0.910) + 
+    (abs(eta) > 0.40 && abs(eta) <= 0.60) * (0.910) + 
+    (abs(eta) > 0.60 && abs(eta) <= 0.80) * (0.900) + 
+    (abs(eta) > 0.80 && abs(eta) <= 1.00) * (0.890) + 
+    (abs(eta) > 1.00 && abs(eta) <= 1.20) * (0.880) + 
+    (abs(eta) > 1.20 && abs(eta) <= 1.40) * (0.870) + 
+    (abs(eta) > 1.40 && abs(eta) <= 1.60) * (0.840) + 
+    (abs(eta) > 1.60 && abs(eta) <= 1.80) * (0.800) + 
+    (abs(eta) > 1.80 && abs(eta) <= 2.00) * (0.780) + 
+    (abs(eta) > 2.00 && abs(eta) <= 2.20) * (0.780) + 
+    (abs(eta) > 2.20 && abs(eta) <= 2.40) * (0.790) + 
+    (abs(eta) > 2.40 && abs(eta) <= 2.50) * (0.730) )
+  *
+  ( (pt <= 0.40) * (0.00) + 
+    (pt > 0.40 && pt <= 0.55) * (0.8667) + 
+    (pt > 0.55 && pt <= 0.65) * (0.9333) + 
+    (pt > 0.65 && pt <= 0.75) * (0.9444) + 
+    (pt > 0.75 && pt <= 0.85) * (0.9556) + 
+    (pt > 0.85 && pt <= 0.95) * (0.9556) + 
+    (pt > 0.95 && pt <= 1.05) * (0.9556) + 
+    (pt > 1.05 && pt <= 1.15) * (0.9667) + 
+    (pt > 1.15 && pt <= 1.25) * (0.9667) + 
+    (pt > 1.25 && pt <= 1.35) * (0.9667) + 
+    (pt > 1.35 && pt <= 1.45) * (0.9667) + 
+    (pt > 1.45 && pt <= 1.75) * (0.9778) + 
+    (pt > 1.75 && pt <= 2.25) * (0.9778) + 
+    (pt > 2.25 && pt <= 2.75) * (0.9778) + 
+    (pt > 2.75 && pt <= 3.25) * (0.9889) + 
+    (pt > 3.25 && pt <= 3.75) * (0.9889) + 
+    (pt > 3.75 && pt <= 4.50) * (0.9889) + 
+    (pt > 4.50) * (1.0) )
+  }
 }
 
 ##############################
@@ -153,17 +186,20 @@ module MomentumSmearing ChargedHadronMomentumSmearing {
   # set ResolutionFormula {resolution formula as a function of eta and pt}
 
   # resolution formula for charged hadrons
-  # PROVENANCE (run1, independently verified):
-  # ATLAS inner-detector track momentum resolution, sigma_ID/pt = a(eta) (+) b(eta)*pt.
-  # Form: arXiv:1404.4562 Eq.(2), Figs. 17-18 (ID-only slope b). RUN-2 (13 TeV) corroboration of the
-  # constant terms: arXiv:1603.05598 (EPJC 76 (2016) 292) Sec. 8.2 (central 1.7-2.3%, endcap 2.3-2.9%)
-  # and arXiv:2012.00578 (EPJC 81 (2021) 578) Fig. 2 (high-pt). No Run-2 paper tabulates (a,b) per eta;
-  # constant terms are figure/prose reads. NB charged hadrons are ID-only -> ID slope b used (not combined-muon).
-  # stock value was: a=0.06,b=0.0013, a=0.1,b=0.0017, a=0.25,b=0.0031
-  # REVIEW: ~3x reduction vs stock. Run-2 muon papers corroborate; confirm ID-only b (3.9e-4) vs combined-muon b (1e-4) for hadrons.
-  set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.015^2 + pt^2*0.00039^2) +
-                         (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.025^2 + pt^2*0.00061^2) +
-                         (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.04^2 + pt^2*0.0009^2)}
+  # PROVENANCE (physicist hand-derivation, reference_ATLASUncerts.ipynb):
+  # Charged-hadron track momentum resolution = sqrt(a^2+(b*pt)^2) * etashape(eta).
+  # pt-shape a=0.013, b=3.6e-4 from the ATLAS ID TDR (via arXiv:1703.10485 Eq.2);
+  # fine |eta| shape + per-bin uncertainty from ATLAS PERF-2015-10 figaux_11a.
+  set ResolutionFormula {
+  (pt > 0.1) * sqrt(0.013^2 + pt^2*0.00036^2)
+  *
+  ( (abs(eta) <= 0.63) * (1.0000) + 
+    (abs(eta) > 0.63 && abs(eta) <= 1.05) * (1.0751) + 
+    (abs(eta) > 1.05 && abs(eta) <= 1.46) * (1.1272) + 
+    (abs(eta) > 1.46 && abs(eta) <= 1.89) * (1.2601) + 
+    (abs(eta) > 1.89 && abs(eta) <= 2.31) * (1.6705) + 
+    (abs(eta) > 2.31 && abs(eta) <= 2.50) * (2.4046) )
+  }
 }
 
 ###################################
