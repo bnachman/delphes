@@ -18,7 +18,7 @@ Legend: ✅ done (real-figure overlay) · 🔸 digitized re-plot (fallback) · �
 ## Tracking / ID efficiency
 | Block | Source figure | Status |
 |-------|---------------|--------|
-| ATLAS charged-hadron tracking | PUB-2015-051 Fig. 1a/1b | 🔒 / 🔸 (aux_trkeff_overlay.pdf) |
+| ATLAS charged-hadron tracking | PUB-2015-051 Fig. 1a (user-supplied) | ✅ aux_overlay_onfigure_atlastrkeff.pdf |
 | CMS charged-hadron tracking | 1405.6569 Fig. 11 | ✅ (aux_overlay_onfigure_cmstrkeff.pdf) |
 | ATLAS muon eff | 2012.00578 (eff figs) | ⬜ |
 | CMS muon eff | 1804.04528 Fig. 7 | ⬜ |
