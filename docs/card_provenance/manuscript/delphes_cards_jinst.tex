@@ -360,6 +360,62 @@ the citable \texttt{*\_baseline} and \texttt{*\_uncertainty} cards from the
 verified records, enabling \textsc{Delphes} studies to carry a genuine
 detector-modelling systematic for the first time.
 
+\appendix
+\section{Validation of figure-read parameterizations}
+\label{app:overlays}
+Several parameterizations are read from published performance figures rather than
+from a numeric table. To document that each extraction is faithful, we overlay the
+adopted \textsc{Delphes} curve (with its uncertainty band) directly on the source
+figure --- so the reader can verify the agreement by eye, and so a mis-extraction
+is caught immediately. Where the source figure is published in an arXiv paper we
+draw on the rendered figure itself (Figs.~\ref{fig:ovl-cmsmu}--\ref{fig:ovl-cmstrk});
+for ATLAS auxiliary figures we overlay on the digitized points, citing the figure
+(Fig.~\ref{fig:ovl-atlastrk}). Each panel reproduces the published figure under our
+curve; the band is the per-bin systematic used in the \texttt{*\_uncertainty} card.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.49\textwidth]{aux_overlay_onfigure_muon.pdf}\hfill
+\includegraphics[width=0.49\textwidth]{aux_overlay_onfigure_atlasmu.pdf}
+\caption{Muon momentum resolution. Left: \textsc{Delphes} CMS barrel curve on CMS
+Fig.~9~\cite{cms-muon} (RMS of $R(q/p_\mathrm{T})$, $|\eta|<0.9$, cosmic rays).
+Right: \textsc{Delphes} ATLAS barrel curve on ATLAS Fig.~2~\cite{atlas-muon13fullrun2}
+($q/p$ resolution vs.\ $p_\mathrm{T}$, $|\eta|<1.05$).}
+\label{fig:ovl-cmsmu}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.62\textwidth]{aux_overlay_onfigure_cmsel.pdf}
+\caption{Electron resolution: the flat \textsc{Delphes} constant term ($b=0$) on
+CMS Fig.~11~\cite{cms-egamma} (barrel/endcap relative energy resolution vs.\
+$p_\mathrm{T}$). Our value matches the E-$p$ combination at low/intermediate
+$p_\mathrm{T}$ and is conservative at high $p_\mathrm{T}$, where the calorimeter
+resolution improves.}
+\label{fig:ovl-cmsel}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.55\textwidth]{aux_overlay_onfigure_cmstrkeff.pdf}
+\caption{CMS charged-hadron tracking efficiency vs.\ $\eta$ on CMS
+Fig.~11~\cite{cms-track}: the card step ($0.95/0.85$) and the proposed finer
+binning, both bracketing the measured plateau and forward fall-off.}
+\label{fig:ovl-cmstrk}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.49\textwidth]{aux_trkeff_overlay.pdf}\hfill
+\includegraphics[width=0.49\textwidth]{aux_momres_overlay.pdf}
+\caption{ATLAS charged-hadron tracking blocks (overlay on digitized points, source
+figures cited). Left: tracking efficiency vs.\ $\eta$, ATL-PHYS-PUB-2015-051
+Fig.~1a. Right: track momentum resolution vs.\ $\eta$, PERF-2015-10 figaux\_11a.
+Remaining blocks (electron/muon/photon identification, flavour tagging) are added
+to this appendix as their overlays are produced.}
+\label{fig:ovl-atlastrk}
+\end{figure}
+
 \begin{thebibliography}{99}
 \small
 \bibitem{delphes} J.~de Favereau \emph{et al.} (DELPHES~3 Collaboration),
@@ -372,6 +428,10 @@ detector-modelling systematic for the first time.
 \bibitem{atlas-muon13} ATLAS Collaboration, ``Muon reconstruction performance of
   the ATLAS detector in $pp$ collision data at $\sqrt{s}=13$~TeV,'' Eur.\ Phys.\
   J.\ C \textbf{76} (2016) 292, arXiv:1603.05598.
+\bibitem{atlas-muon13fullrun2} ATLAS Collaboration, ``Muon reconstruction and
+  identification efficiency in ATLAS using the full Run~2 $pp$ collision data set
+  at $\sqrt{s}=13$~TeV,'' Eur.\ Phys.\ J.\ C \textbf{81} (2021) 578,
+  arXiv:2012.00578.
 \bibitem{cms-muon} CMS Collaboration, ``Performance of the CMS muon detector and
   muon reconstruction with proton-proton collisions at $\sqrt{s}=13$~TeV,''
   JINST \textbf{13} (2018) P06015, arXiv:1804.04528.

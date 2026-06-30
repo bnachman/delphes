@@ -10,7 +10,7 @@ Legend: ✅ done (real-figure overlay) · 🔸 digitized re-plot (fallback) · �
 |-------|---------------|--------|------|
 | CMS muon (barrel) | 1804.04528 Fig. 9 | ✅ | aux_overlay_onfigure_muon.pdf |
 | ATLAS muon (barrel) | 2012.00578 Fig. 2 | ✅ | aux_overlay_onfigure_atlasmu.pdf |
-| CMS electron | 2012.06888 Fig. 11 | ⬜ | — |
+| CMS electron | 2012.06888 Fig. 11 | ✅ | aux_overlay_onfigure_cmsel.pdf |
 | ATLAS electron | 2309.05471 Fig. 16(b) | ⬜ | — |
 | CMS charged-hadron | 1405.6569 Fig. 11 | ⬜ | — |
 | ATLAS charged-hadron | PERF-2015-10 figaux_11a | 🔒 / 🔸 | aux_momres_overlay.pdf (digitized) |
@@ -19,7 +19,7 @@ Legend: ✅ done (real-figure overlay) · 🔸 digitized re-plot (fallback) · �
 | Block | Source figure | Status |
 |-------|---------------|--------|
 | ATLAS charged-hadron tracking | PUB-2015-051 Fig. 1a/1b | 🔒 / 🔸 (aux_trkeff_overlay.pdf) |
-| CMS charged-hadron tracking | 1405.6569 Fig. 10 | ⬜ |
+| CMS charged-hadron tracking | 1405.6569 Fig. 11 | ✅ (aux_overlay_onfigure_cmstrkeff.pdf) |
 | ATLAS muon eff | 2012.00578 (eff figs) | ⬜ |
 | CMS muon eff | 1804.04528 Fig. 7 | ⬜ |
 | ATLAS electron ID | 1902.04655 Fig. 8 | ⬜ |
