@@ -20,8 +20,8 @@ Legend: ✅ done (real-figure overlay) · 🔸 digitized re-plot (fallback) · �
 |-------|---------------|--------|
 | ATLAS charged-hadron tracking | PUB-2015-051 Fig. 1a (user-supplied) | ✅ aux_overlay_onfigure_atlastrkeff.pdf |
 | CMS charged-hadron tracking | 1405.6569 Fig. 11 | ✅ (aux_overlay_onfigure_cmstrkeff.pdf) |
-| ATLAS muon eff | 2012.00578 | ▫ reco eff ~99% (Loose)/95-99% (Tight); card 0.95 conservative — covered by muon res overlay |
-| CMS muon eff | 1804.04528 | ▫ Loose >99%/Tight 95-99%; card 0.95 conservative — covered by muon res overlay |
+| ATLAS muon eff | 2012.00578 | ▫ no overlay; consistency argument only (measured reco eff ~99% Loose / 95-99% Tight makes the card's flat 0.95 conservative) |
+| CMS muon eff | 1804.04528 | ▫ no overlay; consistency argument only (Loose >99% / Tight 95-99% makes the card's flat 0.95 conservative) |
 | ATLAS electron ID | 1902.04655 Fig. 8 | ✅ aux_overlay_onfigure_atlaseid.pdf |
 | CMS electron ID | 2012.06888 Fig. 26 | ✅ aux_overlay_onfigure_cmseid.pdf |
 | ATLAS photon ID | 1810.05087 | ▫ ID-vs-ET fig not cleanly isolated; card 0.95/0.85 consistent w/ tight photon ID |
@@ -31,7 +31,7 @@ Legend: ✅ done (real-figure overlay) · 🔸 digitized re-plot (fallback) · �
 | Block | Source figure | Status |
 |-------|---------------|--------|
 | ATLAS b-tag | 1907.05120 Fig. 8a | ✅ aux_overlay_onfigure_atlasbtag.pdf |
-| CMS b-tag | 1712.07158 | ▫ page render failed; same formula family validated via ATLAS b-tag overlay |
+| CMS b-tag | 1712.07158 Fig. 17 | ⬜ todo (page render failed here) — DeepCSV WP; NOT covered by the ATLAS MV2 overlay |
 | CMS tau | 1809.02816 Fig. 3 (ROC) | ✅ aux_overlay_onfigure_cmstau.pdf |
 
 ## Calorimeter

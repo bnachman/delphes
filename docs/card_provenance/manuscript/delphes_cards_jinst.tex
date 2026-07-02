@@ -207,14 +207,14 @@ Electron tracking eff.         & accept$^\ast$ & mid-/high-$p_\mathrm{T}$ platea
 Muon tracking eff.             & accept$^\ast$ & plateaus consistent; low-$p_\mathrm{T}$ floors unsourced\\
 Charged-hadron mom.\ res.      & accept$^\ast$ & all six coefficients $\sim$3$\times$ too pessimistic\\
 Electron mom.\ res.            & accept$^\ast$ & wrong form: $b\,p_\mathrm{T}$ term is a tracker artefact\\
-Muon mom.\ res.\ (pilot)       & accept       & central floor $1.0\%$ optimistic vs.\ $1.7$--$2.3\%$\\
+Muon mom.\ res.\ (pilot)       & accept       & central floor $1.0\%$ optimistic vs.\ $1.7$--$2.3\%$~\cite{atlas-muon13}\\
 ECal resolution                & \textbf{accept} & $S,C$(FCal) confirmed; only the local $C$ noted\\
 HCal resolution                & accept$^\ast$ & central $S$, forward $S/C$ need revision/re-attribution\\
 Photon ID eff.                 & accept$^\ast$ & barrel $0.95$ slightly optimistic vs.\ WP $\sim$0.90\\
 Electron ID eff.               & accept$^\ast$ & flat $0.95/0.85$ does not match a single WP\\
 Muon ID eff.                   & accept$^\ast$ & $0.95$ pessimistic vs.\ modern Medium WP $\sim$0.98\\
-Jet energy scale               & accept$^\ast$ & \texttt{ScaleFormula} coefficients unsupported (JER needed)\\
-b-tagging                      & accept$^\ast$ & 70\% WP eff.\ + c/light mistag consistent (verified)\\
+Jet energy scale               & accept$^\ast$ & \texttt{ScaleFormula} coefficients unsupported (JER~\cite{atlas-jes} needed)\\
+b-tagging                      & accept$^\ast$ & 70\% WP eff.\ + mistag consistent, but eff.\ falls too steeply at high $p_\mathrm{T}$\\
 $\tau$-tagging                 & \textbf{accept} & eff.\ $0.70/0.60$ consistent with Run-2 RNN Medium WP ($0.75/0.60$)\\
 \midrule
 \multicolumn{3}{@{}l}{\footnotesize CMS card}\\
@@ -230,7 +230,7 @@ HCal resolution                & accept$^\ast$ & central stochastic term too lar
 Photon ID eff.                 & accept$^\ast$ & barrel $0.95$ optimistic vs.\ WP $\sim$0.90\\
 Electron ID eff.               & \textbf{accept} & barrel $0.95$ optimistic for reco$\times$loose-ID\\
 Muon ID eff.                   & \textbf{accept} & plateaus pessimistic vs.\ Tight/Medium WP\\
-Jet energy scale               & \textbf{accept} & generic form; no published source (document as choice)\\
+Jet energy scale               & \textbf{accept} & generic form; no peer-reviewed Run-2 source (cf.\ 8~TeV~\cite{cms-jes})\\
 b-tagging                      & \textbf{accept} & CSVM (70\%) WP eff.\ + mistag confirmed vs.\ card's ref\\
 $\tau$-tagging                 & accept$^\ast$ & mistag pessimistic vs.\ tight WP; $\eta$ acceptance slightly wide\\
 \end{longtable}
@@ -298,8 +298,12 @@ the constant term $C$, as an EM-calorimeter resolution should.}
 
 \paragraph{3.~Several efficiency plateaus are optimistic.}
 The ATLAS charged-hadron tracking efficiency plateau of $0.95$ (central) and
-$0.85$ (forward) sits above the measured~\cite{atlas-tracking} values of
-$\sim$0.86 and $\sim$0.73; the flat $0.95/0.85$ identification efficiencies do
+$0.85$ (forward) sits above the measured~\cite{atlas-tracking} central-value of
+$\sim$0.86 and the forward $\sim$0.73. (The value adopted in the baseline card,
+$0.91$ central, is from the simulation-based Loose-track note ATL-PHYS-PUB-2015-051,
+$\sim$5\% higher than the min-bias-data central plateau of~\cite{atlas-tracking};
+the source-dependence at this level is itself a documented caveat.) The flat
+$0.95/0.85$ identification efficiencies do
 not correspond to any single published working point, and depending on the
 intended WP are optimistic (loose-ID plateaus) or pessimistic (Medium/Tight
 muon WPs reach $\sim$0.98). These are absolute shifts of $5$--$10\%$ that
@@ -347,8 +351,8 @@ Full list with uncertainties in \texttt{run1\_provenance.json}.}\label{tab:propo
 \quad $S,C$ (CMS)   & $|\eta|\!\le\!0.5$ & $0.03,\,1.3\!\times\!10^{-3}$ & $0.028,\,0.020$\\
 \midrule
 \multicolumn{4}{@{}l}{\footnotesize Efficiency plateaus}\\
-\quad ATLAS ch.-had.\ track & central, high $p_\mathrm{T}$ & $0.95$ & $0.86$\\
-\quad ATLAS ch.-had.\ track & forward, high $p_\mathrm{T}$ & $0.85$ & $0.73$\\
+\quad ATLAS ch.-had.\ track & central plateau & $0.95$ & $0.91$ (PUB-2015-051, sim.)\\
+\quad ATLAS ch.-had.\ track & forward ($|\eta|\!\sim\!2.5$) & $0.85$ & $0.73$ (PUB-2015-051)\\
 \quad ATLAS muon ID         & $|\eta|\!\le\!1.5$           & $0.95$ & $0.98$ (Medium WP)\\
 \quad ATLAS $\tau$ (1-prong)& --                           & $0.70$ & $0.75$ (Run-2 RNN Medium)\\
 \midrule
@@ -369,9 +373,11 @@ $0.9,1.2,2.4$), so some coefficients are necessarily interpolations across a
 boundary rather than a verbatim table value. (iii)~Working-point ambiguity: a
 flat efficiency in the card maps to different published numbers depending on the
 intended identification WP, which the card does not state; we record the WP we
-assumed. (Three CMS blocks --- b-tagging, electron momentum resolution, and
-$\tau$-tagging --- lost their verification stage to a workflow interruption and
-were re-verified in a separate pass; all three returned \textsc{accept}, so the
+assumed. (In the first extraction pass, three CMS blocks --- b-tagging, electron
+momentum resolution, and $\tau$-tagging --- lost their verification stage to a
+workflow interruption and were re-verified in a separate pass; all three returned
+\textsc{accept}. The later re-examination pass had its own, distinct interruption
+affecting three different blocks; both are recorded in the provenance directory. So the
 record is now complete for all $26$ blocks.)
 
 \section{Conclusion}
@@ -432,7 +438,8 @@ resolution improves.}
 \includegraphics[width=0.55\textwidth]{aux_overlay_onfigure_cmstrkeff.pdf}
 \caption{CMS charged-hadron tracking efficiency vs.\ $\eta$ on CMS
 Fig.~11~\cite{cms-track}: the card step ($0.95/0.85$) and the proposed finer
-binning, both bracketing the measured plateau and forward fall-off.}
+binning, both bracketing the simulated plateau and forward fall-off (this CMS
+figure is a simulation result).}
 \label{fig:ovl-cmstrk}
 \end{figure}
 
