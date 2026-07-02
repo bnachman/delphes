@@ -1,6 +1,7 @@
 # === CMS uncertainty card (Phase-3 v1, generated) ===
 # Derived from delphes_card_CMS.tcl. Momentum-resolution blocks revised
-# from verified provenance (docs/card_provenance/). +1 sigma 'pessimistic detector' variant (resolutions scaled up).
+# from verified provenance (docs/card_provenance/). 1-sigma 'pessimistic detector' variant, ALL-DEGRADE convention:
+# resolutions scaled UP (+1 sigma), efficiencies scaled DOWN (-1 sigma).
 # Other measured blocks are unchanged here; see findings_summary.md.
 # Lines tagged REVIEW are large changes flagged for human check.
 #

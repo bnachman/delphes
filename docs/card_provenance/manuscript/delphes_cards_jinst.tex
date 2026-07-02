@@ -43,8 +43,10 @@ The audit is executed as a multi-agent pipeline: $26$ parameter blocks
 and verified. We find that while several blocks are already consistent with the
 literature (notably the ATLAS electromagnetic-calorimeter resolution and the
 b-tagging working points), a large fraction --- about $88$ coefficients --- are
-not: the charged-hadron track-momentum resolution is $\sim\!3\times$ too
-pessimistic in both experiments, the electron ``momentum'' resolution is
+not: the charged-hadron track-momentum resolution is too pessimistic in both
+experiments by a factor $\sim\!3$ at high $p_\mathrm{T}$ (slope-dominated) rising
+to $\sim\!6$--$12$ at low $p_\mathrm{T}$ (the constant term), the electron
+``momentum'' resolution is
 modelled with the wrong (tracker-like) functional form for a
 calorimeter-dominated measurement, and several tracking/identification
 efficiency plateaus are optimistic by $5$--$10\%$ absolute. We release the full
@@ -116,7 +118,9 @@ The work proceeds in four phases:
   \texttt{*\_uncertainty} cards and the accompanying manuscript.
 \end{description}
 
-Phases~1 and~2 are executed as a deterministic multi-agent workflow. Each of the
+Phases~1 and~2 are executed as a scripted, fixed-topology multi-agent workflow
+(the orchestration is deterministic; the language-model agents themselves are
+not). Each of the
 $26$ measured blocks is processed independently through two stages. The
 \emph{extraction} agent reads the exact current values from the card, identifies
 and reads the source (arXiv full text), extracts each coefficient with its
@@ -149,22 +153,35 @@ resolution is written $\sigma(E)/E=\sqrt{S^2/E+N^2/E^2+C^2}$ with stochastic,
 noise, and constant terms $S,N,C$.
 
 \section{Results}
-Table~\ref{tab:overview} summarizes the outcome for all $26$ blocks. Every block
-was independently verified: the verification verdict is \textsc{accept} or
-\textsc{accept-with-corrections} for all $26$, where the corrections are
-predominantly locator, journal-reference, or uncertainty refinements rather than
-value reversals (for example, the CMS electron-resolution source reference was
-corrected from EPJC to its actual JINST citation, with all physics values
-confirmed verbatim). Across $\sim\!140$ coefficients, about $88$ are
-flagged as inconsistent with their source (optimistic, pessimistic, wrong form,
-or unsourced) and carry a proposed revision; the remainder are confirmed
-consistent. Figure~\ref{fig:verdicts} shows the per-block breakdown.
+Table~\ref{tab:overview} summarizes the outcome for the $26$ measured blocks (plus
+the two muon-resolution pilot blocks, giving the $28$ rows shown). In the first
+extraction pass every block was independently verified \textsc{accept} or
+\textsc{accept-with-corrections}, where the corrections were predominantly locator,
+journal-reference, or uncertainty refinements rather than value reversals (for
+example, the CMS electron-resolution source reference was corrected from EPJC to
+its actual JINST citation, with all physics values confirmed verbatim). A
+subsequent higher-fidelity re-examination pass (finer $\eta$/$p_\mathrm{T}$ binning
+and per-bin uncertainty bands) was more adversarial and returned two
+\textsc{reject} verdicts: the ATLAS charged-hadron resolution, where an agent
+mis-mapped the ATLAS auxiliary figure to the wrong arXiv paper and fabricated an
+$\eta$-shape (this block instead uses the physicist's hand-digitized values from
+the correct figure; the auxiliary figure itself sits on an egress-blocked host, so
+that specific $\eta$-shape is verified only against the digitized points, not
+re-fetched independently), and the CMS jet-energy scale, where an agent fabricated
+a per-$\eta$ resolution table absent from either cited source (the block instead
+keeps the generic stock form with a detector-performance-note caveat). Across
+$\sim\!135$ coefficients, about $88$ are flagged as inconsistent with their source
+and carry a proposed revision; the remainder are confirmed consistent (with $6$
+``cannot-determine'' counted separately). Figure~\ref{fig:verdicts} shows the
+per-block breakdown for the blocks plotted.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.92\textwidth]{fig_verdicts.pdf}
-\caption{Verdict composition of every measured coefficient, by block, from the
-independent verification pass. ``Consistent'' coefficients reproduce their
+\caption{Verdict composition of the measured coefficients, by block, from the
+independent verification pass (23 of the 26 blocks; the two photon-identification
+and the CMS b-tagging blocks are omitted from this plot but discussed in the text).
+``Consistent'' coefficients reproduce their
 source; the others carry a proposed source-faithful revision.}
 \label{fig:verdicts}
 \end{figure}
@@ -298,9 +315,13 @@ coefficient changes, each with source, locator, uncertainty, and verifier
 verdict, is released in the machine-readable record
 (\texttt{run1\_provenance.json}) and the human-readable
 \texttt{findings\_summary.md}. Consistent with the project's no-silent-overwrite
-rule, none of these have been written to the live cards; they are the input to
-the Phase-3 \texttt{*\_baseline} (central values) and \texttt{*\_uncertainty}
-(error handles) cards.
+rule, the original stock cards are left untouched; the proposed values are instead
+emitted into separate \texttt{*\_baseline} (central values) and
+\texttt{*\_uncertainty} (per-bin error bands) cards. This first-version (v1) pair
+applies the momentum-resolution revisions and the ATLAS charged-hadron tracking
+blocks; the efficiency, calorimeter, and tagging revisions are documented but not
+yet applied, pending the block-by-block review that the validation overlays
+(Appendix~\ref{app:overlays}) support.
 
 \begin{table}[h]
 \centering
@@ -351,14 +372,15 @@ record is now complete for all $26$ blocks.)
 A complete provenance pass over the ATLAS and CMS Run-2 \textsc{Delphes} cards is
 feasible as a verified, multi-agent literature audit. The pass confirms a number
 of card values against their sources and, more importantly, identifies concrete
-defects --- a $\sim$3$\times$ pessimistic track-momentum resolution, an
-electron resolution modelled with the wrong functional form, and several
-optimistic efficiency plateaus --- each tied to a citable measurement and an
-uncertainty. The deliverables are a machine-readable provenance file, a
-human-readable findings summary, and this manuscript; the next step is to emit
-the citable \texttt{*\_baseline} and \texttt{*\_uncertainty} cards from the
-verified records, enabling \textsc{Delphes} studies to carry a genuine
-detector-modelling systematic for the first time.
+defects --- a track-momentum resolution too pessimistic by a factor $\sim$3--12
+depending on $p_\mathrm{T}$, an electron resolution modelled with the wrong
+functional form, and several optimistic efficiency plateaus --- each tied to a
+citable measurement and an uncertainty. The deliverables are a machine-readable
+provenance file, a human-readable findings summary, first-version
+\texttt{*\_baseline} / \texttt{*\_uncertainty} cards, and this manuscript with a
+self-validating overlay appendix. Completing the remaining efficiency, calorimeter,
+and tagging revisions would let \textsc{Delphes} studies carry a source-traceable
+detector-modelling systematic derived directly from the per-bin uncertainty bands.
 
 \appendix
 \section{Validation of figure-read parameterizations}
@@ -413,7 +435,8 @@ efficiency (fine $|\eta|$ bins) on the real ATL-PHYS-PUB-2015-051 Fig.~1a (Loose
 selection) --- the curve tracks the published points across $\eta$. Right: track
 momentum resolution vs.\ $\eta$ (overlay on digitized points; the source auxiliary
 figure was not directly retrievable). Remaining blocks (muon/photon identification)
-are added to this appendix as their overlays are produced.}
+are validated by the consistency arguments in the text (the muon plateaus of
+$\sim$0.99/0.95 make the card's flat $0.95$ conservative).}
 \label{fig:ovl-atlastrk}
 \end{figure}
 
@@ -425,8 +448,10 @@ are added to this appendix as their overlays are produced.}
 Fig.~8a~\cite{atlas-btag} (MV2 $\varepsilon_b=70\%$); the card matches at low
 $p_\mathrm{T}$ but falls off too steeply at high $p_\mathrm{T}$ (a tuning target).
 Right: the card $\tau$ operating point ($\varepsilon_\tau=0.6$, mistag $=0.01$) on
-the CMS misidentification-vs-efficiency ROC, Fig.~3~\cite{cms-tau}; it sits on the
-measured MVA working-point curve.}
+the CMS misidentification-vs-efficiency ROC, Fig.~3~\cite{cms-tau}; the card point
+lies \emph{above} the measured MVA curve --- the flat $0.01$ mistag is a factor
+$\sim$2--3 larger than the measured value at $\varepsilon_\tau=0.6$, i.e.\ the card
+is conservative (pessimistic) on the $\tau$ mistag rate.}
 \label{fig:ovl-tag}
 \end{figure}
 
@@ -438,8 +463,10 @@ measured MVA working-point curve.}
 additional-constant-term $c_i(\eta)$ of Fig.~16b~\cite{atlas-egammacal} (our $a$ is
 the total effective term, so it brackets $c_i$ from above and follows the same
 $\eta$ structure). Right: \textsc{Delphes} electron identification efficiency on
-ATLAS Fig.~8~\cite{atlas-egamma} (vs.\ $\eta$); the card $0.95/0.85$ tracks the
-Loose working point.}
+ATLAS Fig.~8~\cite{atlas-egamma} (vs.\ $\eta$); the card $0.95/0.85$ is closest to
+the Loose working point, but does not match a single published WP --- it is
+slightly optimistic centrally (Loose plateau $\sim$0.93) and pessimistic in the
+endcap ($\sim$0.90).}
 \label{fig:ovl-atlasel}
 \end{figure}
 
@@ -461,9 +488,9 @@ and the forward $0.85$ low (measured $\sim$0.93) --- both flagged for tuning.}
 \bibitem{delphes} J.~de Favereau \emph{et al.} (DELPHES~3 Collaboration),
   ``DELPHES~3: a modular framework for fast simulation of a generic collider
   experiment,'' JHEP \textbf{02} (2014) 057, arXiv:1307.6346.
-\bibitem{atlas-muonres7} ATLAS Collaboration, ``Muon reconstruction efficiency
-  and momentum resolution of the ATLAS experiment in $pp$ collisions at
-  $\sqrt{s}=7$~TeV in 2010,'' Eur.\ Phys.\ J.\ C \textbf{74} (2014) 3130,
+\bibitem{atlas-muonres7} ATLAS Collaboration, ``Measurement of the muon
+  reconstruction performance of the ATLAS detector using 2010 LHC $pp$ collision
+  data at $\sqrt{s}=7$~TeV,'' Eur.\ Phys.\ J.\ C \textbf{74} (2014) 3034,
   arXiv:1404.4562.
 \bibitem{atlas-muon13} ATLAS Collaboration, ``Muon reconstruction performance of
   the ATLAS detector in $pp$ collision data at $\sqrt{s}=13$~TeV,'' Eur.\ Phys.\
@@ -492,10 +519,10 @@ and the forward $0.85$ low (measured $\sim$0.93) --- both flagged for tuning.}
 \bibitem{atlas-egammacal} ATLAS Collaboration, ``Electron and photon energy
   calibration with the ATLAS detector using LHC Run~2 data,'' JINST \textbf{19}
   (2024) P02009, arXiv:2309.05471. (Run-2 electron resolution.)
-\bibitem{atlas-ecal} ATLAS Collaboration (M.~Aharrouche \emph{et al.}), ``Energy
-  linearity and resolution of the ATLAS electromagnetic barrel calorimeter in an
-  electron test-beam,'' Nucl.\ Instrum.\ Meth.\ A \textbf{597} (2008) 178,
-  arXiv:physics/0608012.
+\bibitem{atlas-ecal} M.~Aharrouche \emph{et al.} (ATLAS Electromagnetic Barrel
+  Calorimeter Collaboration), ``Energy linearity and resolution of the ATLAS
+  electromagnetic barrel calorimeter in an electron test-beam,'' Nucl.\ Instrum.\
+  Meth.\ A \textbf{568} (2006) 601, arXiv:physics/0608012.
 \bibitem{atlas-af3} ATLAS Collaboration, ``AtlFast3: the next generation of fast
   simulation in ATLAS,'' Comput.\ Softw.\ Big Sci.\ \textbf{6} (2022) 7,
   arXiv:2109.02551.

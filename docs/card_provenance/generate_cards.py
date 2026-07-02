@@ -61,8 +61,8 @@ BLOCKS = [
        source=["Combined-muon pt resolution. Source: arXiv:1603.05598 (EPJC 76 (2016) 292) Sec. 8.2; form arXiv:1404.4562 Eq.(2).",
                "Central floor raised 0.010 -> 0.017 to match measured 1.7% (J/psi) / 2.3% (Z); mid/endcap unchanged."],
        cur=[(0,0.5,0.010,1.0e-4),(0.5,1.5,0.015,1.5e-4),(1.5,2.5,0.025,3.5e-4)],
-       new=[(0,0.5,0.017,1.0e-4),(0.5,1.5,0.015,1.5e-4),(1.5,2.5,0.025,3.5e-4)],
-       note="REVIEW: central floor change only (combined-muon vs ID-only ambiguity; see provenance)."),
+       new=[(0,0.5,0.017,1.0e-4),(0.5,1.5,0.017,1.5e-4),(1.5,2.5,0.025,3.5e-4)],
+       note="REVIEW: barrel floors raised to 0.017 (1603.05598 gives 1.7-2.3% over |eta|<1.05, covering both the <=0.5 and 0.5-1.5 bins) to keep sigma monotonic in eta; endcap 0.025 unchanged. NB still optimistic at Z energies (2.3% at pt~45)."),
   # ---------------- CMS ----------------
   dict(card="CMS", module="ChargedHadronMomentumSmearing", review=True, runc=0.15,
        source=["CMS tracker track momentum resolution. Source: arXiv:1405.6569 (JINST 9 (2014) P10009, 7 TeV).",
@@ -119,7 +119,8 @@ def build(variant):
             f"# Derived from delphes_card_{card}.tcl. Momentum-resolution blocks revised\n"
             f"# from verified provenance (docs/card_provenance/). "
             + ("Central source-faithful values.\n" if variant == "baseline"
-               else "+1 sigma 'pessimistic detector' variant (resolutions scaled up).\n")
+               else "1-sigma 'pessimistic detector' variant, ALL-DEGRADE convention:\n"
+                    "# resolutions scaled UP (+1 sigma), efficiencies scaled DOWN (-1 sigma).\n")
             + "# Other measured blocks are unchanged here; see findings_summary.md.\n"
             + "# Lines tagged REVIEW are large changes flagged for human check.\n#\n"
         )

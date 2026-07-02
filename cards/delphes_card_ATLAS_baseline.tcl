@@ -249,9 +249,9 @@ module MomentumSmearing MuonMomentumSmearing {
   # Combined-muon pt resolution. Source: arXiv:1603.05598 (EPJC 76 (2016) 292) Sec. 8.2; form arXiv:1404.4562 Eq.(2).
   # Central floor raised 0.010 -> 0.017 to match measured 1.7% (J/psi) / 2.3% (Z); mid/endcap unchanged.
   # stock value was: a=0.01,b=0.0001, a=0.015,b=0.00015, a=0.025,b=0.00035
-  # REVIEW: central floor change only (combined-muon vs ID-only ambiguity; see provenance).
+  # REVIEW: barrel floors raised to 0.017 (1603.05598 gives 1.7-2.3% over |eta|<1.05, covering both the <=0.5 and 0.5-1.5 bins) to keep sigma monotonic in eta; endcap 0.025 unchanged. NB still optimistic at Z energies (2.3% at pt~45).
   set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.017^2 + pt^2*0.0001^2) +
-                         (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.015^2 + pt^2*0.00015^2) +
+                         (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.017^2 + pt^2*0.00015^2) +
                          (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.025^2 + pt^2*0.00035^2)}
 }
 

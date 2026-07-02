@@ -91,13 +91,23 @@ RES_HDR = [
   "fine |eta| shape + per-bin uncertainty from ATLAS PERF-2015-10 figaux_11a.",
 ]
 
+# ALL-DEGRADE uncertainty convention: the uncertainty card degrades the detector,
+# so tracking efficiency is shifted DOWN by 1 sigma (mirror of the figure's up-band),
+# while the resolution is scaled UP. This keeps the _uncertainty card a coherent
+# one-sided (pessimistic) systematic. Normalise the pt turn-on to PLATEAU_BASE in
+# both cards so the shift is applied cleanly.
+def _mirror_down(base_tab, up_tab):
+    return [(lo, hi, round(2*b - u, 4)) for (lo, hi, b), (_, _, u) in zip(base_tab, up_tab)]
+ETA_EFF_DN = _mirror_down(ETA_EFF_BASE, ETA_EFF_UP)
+PT_EFF_DN  = _mirror_down(PT_EFF_BASE, PT_EFF_UP)
+
 for card, up in ((CARD_BASE, False), (CARD_UNC, True)):
     with open(card) as f:
         text = f.read()
-    eff = eff_formula(ETA_EFF_UP if up else ETA_EFF_BASE, PT_EFF_UP if up else PT_EFF_BASE,
-                      PLATEAU_UP if up else PLATEAU_BASE)
+    eff = eff_formula(ETA_EFF_DN if up else ETA_EFF_BASE, PT_EFF_DN if up else PT_EFF_BASE,
+                      PLATEAU_BASE)
     res = res_formula(up=up)
-    eh = EFF_HDR + (["this card: +1 sigma per-eta band (systematic-up bin values)."] if up else [])
+    eh = EFF_HDR + (["this card: -1 sigma per-eta band (efficiency DEGRADED, all-degrade convention)."] if up else [])
     rh = RES_HDR + (["this card: +1 sigma per-eta band (etashape x 1.03-1.10 from the figure band)."] if up else [])
     text = replace_block(text, "module Efficiency ChargedHadronTrackingEfficiency",
                          "EfficiencyFormula", eff, header(eh))

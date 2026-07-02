@@ -1,6 +1,7 @@
 # === ATLAS uncertainty card (Phase-3 v1, generated) ===
 # Derived from delphes_card_ATLAS.tcl. Momentum-resolution blocks revised
-# from verified provenance (docs/card_provenance/). +1 sigma 'pessimistic detector' variant (resolutions scaled up).
+# from verified provenance (docs/card_provenance/). 1-sigma 'pessimistic detector' variant, ALL-DEGRADE convention:
+# resolutions scaled UP (+1 sigma), efficiencies scaled DOWN (-1 sigma).
 # Other measured blocks are unchanged here; see findings_summary.md.
 # Lines tagged REVIEW are large changes flagged for human check.
 #
@@ -98,40 +99,40 @@ module Efficiency ChargedHadronTrackingEfficiency {
   # Charged-hadron tracking efficiency, fine |eta| bins (plateau) x pt turn-on.
   # Source: ATL-PHYS-PUB-2015-051 (Early ID Tracking Performance, 13 TeV) Fig 1a/1b (Loose).
   # Dense-environment effects (PERF-2015-08) NOT included. Replaces the stock 2-bin 0.95/0.85.
-  # this card: +1 sigma per-eta band (systematic-up bin values).
+  # this card: -1 sigma per-eta band (efficiency DEGRADED, all-degrade convention).
   set EfficiencyFormula {
   ( (abs(eta) > 2.5) * (0.00) + 
     (abs(eta) <= 0.20) * (0.910) + 
     (abs(eta) > 0.20 && abs(eta) <= 0.40) * (0.910) + 
     (abs(eta) > 0.40 && abs(eta) <= 0.60) * (0.910) + 
-    (abs(eta) > 0.60 && abs(eta) <= 0.80) * (0.910) + 
-    (abs(eta) > 0.80 && abs(eta) <= 1.00) * (0.900) + 
-    (abs(eta) > 1.00 && abs(eta) <= 1.20) * (0.890) + 
+    (abs(eta) > 0.60 && abs(eta) <= 0.80) * (0.890) + 
+    (abs(eta) > 0.80 && abs(eta) <= 1.00) * (0.880) + 
+    (abs(eta) > 1.00 && abs(eta) <= 1.20) * (0.870) + 
     (abs(eta) > 1.20 && abs(eta) <= 1.40) * (0.870) + 
-    (abs(eta) > 1.40 && abs(eta) <= 1.60) * (0.850) + 
-    (abs(eta) > 1.60 && abs(eta) <= 1.80) * (0.810) + 
-    (abs(eta) > 1.80 && abs(eta) <= 2.00) * (0.790) + 
-    (abs(eta) > 2.00 && abs(eta) <= 2.20) * (0.800) + 
-    (abs(eta) > 2.20 && abs(eta) <= 2.40) * (0.810) + 
-    (abs(eta) > 2.40 && abs(eta) <= 2.50) * (0.750) )
+    (abs(eta) > 1.40 && abs(eta) <= 1.60) * (0.830) + 
+    (abs(eta) > 1.60 && abs(eta) <= 1.80) * (0.790) + 
+    (abs(eta) > 1.80 && abs(eta) <= 2.00) * (0.770) + 
+    (abs(eta) > 2.00 && abs(eta) <= 2.20) * (0.760) + 
+    (abs(eta) > 2.20 && abs(eta) <= 2.40) * (0.770) + 
+    (abs(eta) > 2.40 && abs(eta) <= 2.50) * (0.710) )
   *
   ( (pt <= 0.40) * (0.00) + 
-    (pt > 0.40 && pt <= 0.55) * (0.8681) + 
-    (pt > 0.55 && pt <= 0.65) * (0.9341) + 
-    (pt > 0.65 && pt <= 0.75) * (0.9451) + 
-    (pt > 0.75 && pt <= 0.85) * (0.9560) + 
-    (pt > 0.85 && pt <= 0.95) * (0.9560) + 
-    (pt > 0.95 && pt <= 1.05) * (0.9560) + 
-    (pt > 1.05 && pt <= 1.15) * (0.9670) + 
-    (pt > 1.15 && pt <= 1.25) * (0.9670) + 
-    (pt > 1.25 && pt <= 1.35) * (0.9670) + 
-    (pt > 1.35 && pt <= 1.45) * (0.9670) + 
-    (pt > 1.45 && pt <= 1.75) * (0.9670) + 
-    (pt > 1.75 && pt <= 2.25) * (0.9780) + 
-    (pt > 2.25 && pt <= 2.75) * (0.9780) + 
-    (pt > 2.75 && pt <= 3.25) * (0.9890) + 
-    (pt > 3.25 && pt <= 3.75) * (0.9890) + 
-    (pt > 3.75 && pt <= 4.50) * (0.9890) + 
+    (pt > 0.40 && pt <= 0.55) * (0.8556) + 
+    (pt > 0.55 && pt <= 0.65) * (0.9222) + 
+    (pt > 0.65 && pt <= 0.75) * (0.9333) + 
+    (pt > 0.75 && pt <= 0.85) * (0.9444) + 
+    (pt > 0.85 && pt <= 0.95) * (0.9444) + 
+    (pt > 0.95 && pt <= 1.05) * (0.9444) + 
+    (pt > 1.05 && pt <= 1.15) * (0.9556) + 
+    (pt > 1.15 && pt <= 1.25) * (0.9556) + 
+    (pt > 1.25 && pt <= 1.35) * (0.9556) + 
+    (pt > 1.35 && pt <= 1.45) * (0.9556) + 
+    (pt > 1.45 && pt <= 1.75) * (0.9778) + 
+    (pt > 1.75 && pt <= 2.25) * (0.9667) + 
+    (pt > 2.25 && pt <= 2.75) * (0.9667) + 
+    (pt > 2.75 && pt <= 3.25) * (0.9778) + 
+    (pt > 3.25 && pt <= 3.75) * (0.9778) + 
+    (pt > 3.75 && pt <= 4.50) * (0.9778) + 
     (pt > 4.50) * (1.0) )
   }
 }
@@ -253,9 +254,9 @@ module MomentumSmearing MuonMomentumSmearing {
   # Central floor raised 0.010 -> 0.017 to match measured 1.7% (J/psi) / 2.3% (Z); mid/endcap unchanged.
   # stock value was: a=0.01,b=0.0001, a=0.015,b=0.00015, a=0.025,b=0.00035
   # this card: +1 sigma (x1.05) on the baseline central values.
-  # REVIEW: central floor change only (combined-muon vs ID-only ambiguity; see provenance).
+  # REVIEW: barrel floors raised to 0.017 (1603.05598 gives 1.7-2.3% over |eta|<1.05, covering both the <=0.5 and 0.5-1.5 bins) to keep sigma monotonic in eta; endcap 0.025 unchanged. NB still optimistic at Z energies (2.3% at pt~45).
   set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.01785^2 + pt^2*0.000105^2) +
-                         (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.01575^2 + pt^2*0.0001575^2) +
+                         (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.01785^2 + pt^2*0.0001575^2) +
                          (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.02625^2 + pt^2*0.0003675^2)}
 }
 
