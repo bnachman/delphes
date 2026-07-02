@@ -183,14 +183,16 @@ module MomentumSmearing ElectronMomentumSmearing {
   # resolution formula for electrons
   # based on arXiv:1502.02701
   # PROVENANCE (run1, independently verified):
-  # Electron resolution is ECAL-dominated -> ~flat vs pt; stock b*pt term is a tracker artefact (removed).
-  # RUN-2 source: arXiv:2012.06888 (JINST 16 (2021) P05014, e/gamma reco/ID, full Run 2) Fig. 11 / abstract:
-  # effective resolution ~2% (barrel) to ~4-5% (endcap), flat in pt above ~15 GeV.
+  # Electron resolution is ECAL-dominated: use sqrt(S^2/pt + C^2), NOT the tracker form.
+  # Sampling S=0.028 (2.8%/sqrt(GeV)) from the CMS ECAL test beam (JINST 2 (2007) P04004);
+  # constant term C from RUN-2 arXiv:2012.06888 (JINST 16 (2021) P05014) Fig.11: ~2/2.5/5%.
+  # CMS ECAL sampling is small, so this stays ~2-2.5% at the Z scale (the 'Corrected SC' curve).
+  # NB the E-p combination improves to <1% at high pt but is not captured by single-Gaussian smearing.
   # stock value was: a=0.03,b=0.0013, a=0.05,b=0.0017, a=0.15,b=0.0031
   # REVIEW: functional-form change (b set to 0; constant term set to measured Run-2 effective resolution).
-  set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.02^2 + pt^2*0.0^2) +
-                         (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.025^2 + pt^2*0.0^2) +
-                         (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.05^2 + pt^2*0.0^2)}
+  set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.028^2/pt + 0.02^2) +
+                         (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.028^2/pt + 0.025^2) +
+                         (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.028^2/pt + 0.05^2)}
 }
 
 ###############################

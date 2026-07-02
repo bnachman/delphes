@@ -34,7 +34,7 @@ with a caveat).
 | 9 | **CMS HCal** stochastic $S$ | \|η\|≤3.0 | 1.50 | 1.10 (with $C$=0.09) | PF arXiv:1706.04965 Eq.(2) (110%/√E⊕9%) + Run-2 corrob. 1910.00079 | detector-intrinsic; card 150%/5% ≠ published 110%/9% |
 | 10 | **ATLAS ch-had tracking eff** plateau | central / forward | 0.95 / 0.85 | 0.86 / 0.73 | arXiv:1602.01633 Fig. 2(c,d) | optimistic by 5–12% absolute |
 | 11 | **ATLAS muon ID eff** | \|η\|≤1.5 | 0.95 | 0.98 (Medium WP) | arXiv:1603.05598 / 2012.00578 | pessimistic; depends on intended WP |
-| 12 | **ATLAS τ eff** (1-prong / 3-prong) | — | 0.70 / 0.60 | 0.55 / 0.40 | ATL-PHYS-PUB-2015-045 (Medium WP) | card optimistic vs the WP it names |
+| 12 | **ATLAS τ eff** (1-prong / 3-prong) | — | 0.70 / 0.60 | **keep** (0.75 / 0.60) | **Run-2:** ATL-PHYS-PUB-2019-033 (RNN Medium WP, Table 2) | **Corrected:** card is consistent/slightly conservative, NOT optimistic — the earlier "0.55/0.40" used the superseded 2015 BDT note. Card multi-prong mistag 0.01 is ~2× the RNN value (0.0042) → conservative. |
 | 13 | **CMS τ→jet mistag** | — | 0.01 | 0.003 | arXiv:1809.02816 §5.2 (tight WP 0.21%→0.07%) | card ~3–10× too high at the matched efficiency |
 | 14 | **ATLAS JES** `ScaleFormula` coeffs | — | 3.0, 0.2 | (no clean drop-in) | arXiv:1703.09665 / 2007.02645 | verifier: coefficients unsupported; needs a proper JER parameterization, not a single linear η slope |
 | 15 | **CMS JES** `ScaleFormula` stochastic | — | ~2.5 | ~0.9 (with $C$≈0.04) | **No Run-2 paper;** best = CMS-DP-2021-033 (Run-2 legacy) | card-implied σ/p_T ~3× measured Run-2 JER; no constant term. DP-note only |

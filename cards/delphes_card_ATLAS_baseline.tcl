@@ -214,14 +214,16 @@ module MomentumSmearing ElectronMomentumSmearing {
 
   # resolution formula for electrons
   # PROVENANCE (run1, independently verified):
-  # Electron resolution is EM-calorimeter-dominated -> ~flat vs pt; the stock b*pt term is a tracker artefact (removed).
-  # RUN-2 source: arXiv:2309.05471 (JINST 19 (2024) P02009, e/gamma energy calibration, full Run 2) Sec. 5.1, Sec. 7, Fig. 16(b):
-  # effective constant term ~1.0% (barrel) to ~1.8% (endcap). NB the uncalibrated 1.37<|eta|<1.52 crack lies inside the middle bin.
+  # Electron resolution is EM-calorimeter-dominated: use sqrt(S^2/pt + C^2), NOT the tracker form.
+  # Sampling S=0.101 (10.1%/sqrt(GeV)) from the EM barrel test beam (physics/0608012); constant term
+  # C from RUN-2 arXiv:2309.05471 (JINST 19 (2024) P02009) Sec.5.1/7, Fig.16(b): ~1.0/1.2/1.8%.
+  # This gives ~1.8% at the Z scale (matches the measured 1.7-2.3%), improving with pt to C -- the flat-C
+  # form was optimistic at low/intermediate pt. NB the uncalibrated 1.37<|eta|<1.52 crack lies in the middle bin.
   # stock value was: a=0.03,b=0.0013, a=0.05,b=0.0017, a=0.15,b=0.0031
-  # REVIEW: functional-form change (b set to 0; constant term lowered to measured Run-2 effective resolution).
-  set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.01^2 + pt^2*0.0^2) +
-                         (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.012^2 + pt^2*0.0^2) +
-                         (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.018^2 + pt^2*0.0^2)}
+  # REVIEW: functional-form change to sqrt(S^2/pt + C^2) (EM-calo form); S=0.101, C=0.010/0.012/0.018.
+  set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.101^2/pt + 0.01^2) +
+                         (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.101^2/pt + 0.012^2) +
+                         (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.101^2/pt + 0.018^2)}
 }
 
 ###############################

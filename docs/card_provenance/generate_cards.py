@@ -27,8 +27,15 @@ def fmt(x):
     s = f"{x:.6g}"
     return s
 
-def formula(coeffs):
-    """Build a Delphes ResolutionFormula string from 3 (eta_lo,eta_hi,a,b) rows."""
+def formula(coeffs, sampling=None):
+    """Build a Delphes ResolutionFormula string from 3 (eta_lo,eta_hi,a,b) rows.
+
+    If `sampling` (S) is given, emit the calorimeter-style energy-dependent form
+    sigma(pt)/pt = sqrt(S^2/pt + C^2) with C = a (the b column is ignored); this is
+    the correct form for EM-calorimeter-dominated electrons (fractional resolution
+    improves with pt via the sampling term, asymptoting to the constant term C).
+    Otherwise emit the tracking form sqrt(a^2 + (b*pt)^2).
+    """
     lines = []
     pad = " " * 25
     for i, (elo, ehi, a, b) in enumerate(coeffs):
@@ -36,7 +43,10 @@ def formula(coeffs):
             cond = f"(abs(eta) <= {fmt(ehi)})"
         else:
             cond = f"(abs(eta) > {fmt(elo)} && abs(eta) <= {fmt(ehi)})"
-        term = f"{cond} * (pt > 0.1) * sqrt({fmt(a)}^2 + pt^2*{fmt(b)}^2)"
+        if sampling is not None:
+            term = f"{cond} * (pt > 0.1) * sqrt({fmt(sampling)}^2/pt + {fmt(a)}^2)"
+        else:
+            term = f"{cond} * (pt > 0.1) * sqrt({fmt(a)}^2 + pt^2*{fmt(b)}^2)"
         prefix = "                  " if i == 0 else pad
         suffix = " +" if i < len(coeffs) - 1 else ""
         lines.append(prefix + term + suffix)
@@ -50,13 +60,17 @@ BLOCKS = [
   # ---------------- ATLAS ----------------
   # ATLAS ChargedHadronMomentumSmearing is handled by apply_user_tracking.py
   # (physicist's fine eta-shape + per-eta uncertainty band), not here.
-  dict(card="ATLAS", module="ElectronMomentumSmearing", review=True, runc=0.15,
-       source=["Electron resolution is EM-calorimeter-dominated -> ~flat vs pt; the stock b*pt term is a tracker artefact (removed).",
-               "RUN-2 source: arXiv:2309.05471 (JINST 19 (2024) P02009, e/gamma energy calibration, full Run 2) Sec. 5.1, Sec. 7, Fig. 16(b):",
-               "effective constant term ~1.0% (barrel) to ~1.8% (endcap). NB the uncalibrated 1.37<|eta|<1.52 crack lies inside the middle bin."],
+  dict(card="ATLAS", module="ElectronMomentumSmearing", review=True, runc=0.15, sampling=0.101,
+       source=["Electron resolution is EM-calorimeter-dominated: use sqrt(S^2/pt + C^2), NOT the tracker form.",
+               "Sampling S=0.101 (10.1%/sqrt(GeV)) from the EM barrel test beam (physics/0608012); constant term",
+               "C from RUN-2 arXiv:2309.05471 (JINST 19 (2024) P02009) Sec.5.1/7, Fig.16(b): ~1.0/1.2/1.8%.",
+               "Gives ~3% at pt~10 GeV improving to ~C (~1-1.8%) at high pt -- the physical energy dependence of an",
+               "EM-calorimeter measurement (the flat-C form was unphysically flat and optimistic at low/intermediate pt).",
+               "S=0.101 is the raw sampling; the calibrated/E-p electron is somewhat better, so this is a slight over-estimate",
+               "at low ET. NB the uncalibrated 1.37<|eta|<1.52 crack lies in the middle bin."],
        cur=[(0,0.5,0.03,1.3e-3),(0.5,1.5,0.05,1.7e-3),(1.5,2.5,0.15,3.1e-3)],
        new=[(0,0.5,0.010,0.0),(0.5,1.5,0.012,0.0),(1.5,2.5,0.018,0.0)],
-       note="REVIEW: functional-form change (b set to 0; constant term lowered to measured Run-2 effective resolution)."),
+       note="REVIEW: functional-form change to sqrt(S^2/pt + C^2) (EM-calo form); S=0.101, C=0.010/0.012/0.018."),
   dict(card="ATLAS", module="MuonMomentumSmearing", review=True, runc=0.05,
        source=["Combined-muon pt resolution. Source: arXiv:1603.05598 (EPJC 76 (2016) 292) Sec. 8.2; form arXiv:1404.4562 Eq.(2).",
                "Central floor raised 0.010 -> 0.017 to match measured 1.7% (J/psi) / 2.3% (Z); mid/endcap unchanged."],
@@ -72,10 +86,12 @@ BLOCKS = [
        cur=[(0,0.5,0.06,1.3e-3),(0.5,1.5,0.10,1.7e-3),(1.5,2.5,0.25,3.1e-3)],
        new=[(0,0.5,0.009,2.3e-4),(0.5,1.5,0.015,4.2e-4),(1.5,2.5,0.023,9.5e-4)],
        note="REVIEW: ~3x reduction vs stock (constant terms ~1-2.3%, slopes ~2-10e-4/GeV)."),
-  dict(card="CMS", module="ElectronMomentumSmearing", review=True, runc=0.15,
-       source=["Electron resolution is ECAL-dominated -> ~flat vs pt; stock b*pt term is a tracker artefact (removed).",
-               "RUN-2 source: arXiv:2012.06888 (JINST 16 (2021) P05014, e/gamma reco/ID, full Run 2) Fig. 11 / abstract:",
-               "effective resolution ~2% (barrel) to ~4-5% (endcap), flat in pt above ~15 GeV."],
+  dict(card="CMS", module="ElectronMomentumSmearing", review=True, runc=0.15, sampling=0.028,
+       source=["Electron resolution is ECAL-dominated: use sqrt(S^2/pt + C^2), NOT the tracker form.",
+               "Sampling S=0.028 (2.8%/sqrt(GeV)) from the CMS ECAL test beam (JINST 2 (2007) P04004);",
+               "constant term C from RUN-2 arXiv:2012.06888 (JINST 16 (2021) P05014) Fig.11: ~2/2.5/5%.",
+               "CMS ECAL sampling is small, so this stays ~2-2.5% at the Z scale (the 'Corrected SC' curve).",
+               "NB the E-p combination improves to <1% at high pt but is not captured by single-Gaussian smearing."],
        cur=[(0,0.5,0.03,1.3e-3),(0.5,1.5,0.05,1.7e-3),(1.5,2.5,0.15,3.1e-3)],
        new=[(0,0.5,0.020,0.0),(0.5,1.5,0.025,0.0),(1.5,2.5,0.050,0.0)],
        note="REVIEW: functional-form change (b set to 0; constant term set to measured Run-2 effective resolution)."),
@@ -135,7 +151,7 @@ def build(variant):
                 hdr.append(f"this card: +1 sigma (x{1+b['runc']:.2f}) on the baseline central values.")
             if b["review"]:
                 hdr.append(b["note"])
-            text = replace_formula(text, b["module"], formula(coeffs), hdr)
+            text = replace_formula(text, b["module"], formula(coeffs, b.get("sampling")), hdr)
         # prepend banner after the first line (keep any shebang/first comment)
         text = banner + text
         out = os.path.join(CARDS, f"delphes_card_{card}_{variant}.tcl")

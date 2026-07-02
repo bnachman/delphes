@@ -57,18 +57,21 @@ plt.close(fig)
 # CMS measured effective resolution ~1.6-1.7% (barrel) to ~4.5% (endcap), flat vs pt.
 # ---------------------------------------------------------------------------
 fig, ax = plt.subplots(figsize=(4.0, 2.8))
-# card electron barrel: a=0.03, b=1.3e-3
-ax.plot(pt, 100*momres(pt, 0.03, 1.3e-3), "k--", label="Delphes card, barrel (a=0.03, b=1.3e-3)")
+# stock card (tracker form, rising with pt -- WRONG for a calorimeter)
+ax.plot(pt, 100*momres(pt, 0.03, 1.3e-3), "k--", label="stock card, barrel (rising, wrong form)")
 ax.plot(pt, 100*momres(pt, 0.15, 3.1e-3), color="0.5", ls="--",
-        label="Delphes card, endcap (a=0.15, b=3.1e-3)")
-# measured: roughly flat constant-term bands (CMS Run-2 2012.06888 effective resolution)
-ax.axhspan(1.9, 2.1, color="#1f77b4", alpha=0.35, label="CMS Run-2 barrel ~2% (flat)")
-ax.axhspan(4.0, 5.0, color="#d62728", alpha=0.30, label="CMS Run-2 endcap ~4-5% (flat)")
+        label="stock card, endcap (rising, wrong form)")
+# proposed energy-dependent form sqrt(S^2/pt + C^2) -- improves with pt (correct)
+def eres(pt, S, C): return np.sqrt(S**2/pt + C**2)
+ax.plot(pt, 100*eres(pt, 0.101, 0.010), color="#1f77b4", lw=1.8,
+        label=r"proposed ATLAS barrel $\sqrt{0.101^2/p_T+0.010^2}$")
+ax.plot(pt, 100*eres(pt, 0.101, 0.018), color="#d62728", lw=1.8,
+        label=r"proposed ATLAS endcap $\sqrt{0.101^2/p_T+0.018^2}$")
 ax.set_xscale("log")
 ax.set_xlabel(r"$p_\mathrm{T}$ [GeV]")
 ax.set_ylabel(r"$\sigma(p_\mathrm{T})/p_\mathrm{T}$ [%]")
-ax.set_ylim(0, 60)
-ax.set_title("Electron resolution: card uses the wrong (tracker) form")
+ax.set_ylim(0, 20)
+ax.set_title("Electron resolution: tracker form (stock) vs. calorimeter form (proposed)")
 ax.grid(True, which="both", ls=":", alpha=0.4)
 ax.legend(loc="upper left", frameon=False)
 fig.tight_layout()
