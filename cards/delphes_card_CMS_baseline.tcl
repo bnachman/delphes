@@ -164,7 +164,7 @@ module MomentumSmearing ChargedHadronMomentumSmearing {
   # per-eta resolution exists). RUN-2 (13 TeV) corroboration: arXiv:1712.07158 (~1.5% central pt resolution),
   # which itself cites 1405.6569. Constant terms revised to match the ~1.5% central benchmark.
   # stock value was: a=0.06,b=0.0013, a=0.1,b=0.0017, a=0.25,b=0.0031
-  # REVIEW: ~3x reduction vs stock (constant terms ~1-2.3%, slopes ~2-10e-4/GeV).
+  # REVIEW: ~3x reduction vs stock (constant terms ~1-2.3%, slopes ~2-10e-4/GeV). CAVEAT (verifier): the mid/endcap slopes (4.2e-4, 9.5e-4) are read from the 90% interval; the 68% curve gives ~2.8-3.0e-4 and ~6.7e-4, and the endcap floor reads ~1.9% (not 2.3%). Kept the conservative (wider) 90% reads; adopt the 68% values if a central-value tune is preferred.
   set ResolutionFormula {                  (abs(eta) <= 0.5) * (pt > 0.1) * sqrt(0.009^2 + pt^2*0.00023^2) +
                          (abs(eta) > 0.5 && abs(eta) <= 1.5) * (pt > 0.1) * sqrt(0.015^2 + pt^2*0.00042^2) +
                          (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.023^2 + pt^2*0.00095^2)}

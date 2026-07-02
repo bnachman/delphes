@@ -220,8 +220,10 @@ module MomentumSmearing ElectronMomentumSmearing {
   # Electron resolution is EM-calorimeter-dominated: use sqrt(S^2/pt + C^2), NOT the tracker form.
   # Sampling S=0.101 (10.1%/sqrt(GeV)) from the EM barrel test beam (physics/0608012); constant term
   # C from RUN-2 arXiv:2309.05471 (JINST 19 (2024) P02009) Sec.5.1/7, Fig.16(b): ~1.0/1.2/1.8%.
-  # This gives ~1.8% at the Z scale (matches the measured 1.7-2.3%), improving with pt to C -- the flat-C
-  # form was optimistic at low/intermediate pt. NB the uncalibrated 1.37<|eta|<1.52 crack lies in the middle bin.
+  # Gives ~3% at pt~10 GeV improving to ~C (~1-1.8%) at high pt -- the physical energy dependence of an
+  # EM-calorimeter measurement (the flat-C form was unphysically flat and optimistic at low/intermediate pt).
+  # S=0.101 is the raw sampling; the calibrated/E-p electron is somewhat better, so this is a slight over-estimate
+  # at low ET. NB the uncalibrated 1.37<|eta|<1.52 crack lies in the middle bin.
   # stock value was: a=0.03,b=0.0013, a=0.05,b=0.0017, a=0.15,b=0.0031
   # this card: +1 sigma (x1.15) on the baseline central values.
   # REVIEW: functional-form change to sqrt(S^2/pt + C^2) (EM-calo form); S=0.101, C=0.010/0.012/0.018.

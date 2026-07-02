@@ -406,9 +406,13 @@ curve; the band is the per-bin systematic used in the \texttt{*\_uncertainty} ca
 \includegraphics[width=0.49\textwidth]{aux_overlay_onfigure_muon.pdf}\hfill
 \includegraphics[width=0.49\textwidth]{aux_overlay_onfigure_atlasmu.pdf}
 \caption{Muon momentum resolution. Left: \textsc{Delphes} CMS barrel curve on CMS
-Fig.~9~\cite{cms-muon} (RMS of $R(q/p_\mathrm{T})$, $|\eta|<0.9$, cosmic rays).
-Right: \textsc{Delphes} ATLAS barrel curve on ATLAS Fig.~2~\cite{atlas-muon13fullrun2}
-($q/p$ resolution vs.\ $p_\mathrm{T}$, $|\eta|<1.05$).}
+Fig.~9~\cite{cms-muon} (RMS of $R(q/p_\mathrm{T})$, $|\eta|<0.9$, cosmic rays); the
+card is compared to the \emph{inner-tracker-only} points --- CMS high-$p_\mathrm{T}$
+muons combine the muon system (Tune-P, $\sim$6\% at $1$~TeV vs.\ the tracker's
+$\sim$10\%), so a single-Gaussian card tuned to the tracker points is conservative
+at high $p_\mathrm{T}$. Right: \textsc{Delphes} ATLAS barrel curve on ATLAS
+Fig.~2~\cite{atlas-muon13fullrun2} ($q/p$ resolution vs.\ $p_\mathrm{T}$,
+$|\eta|<1.05$; the endcap panel is shown for context, not overlaid).}
 \label{fig:ovl-cmsmu}
 \end{figure}
 

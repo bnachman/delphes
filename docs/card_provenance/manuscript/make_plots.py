@@ -24,13 +24,14 @@ pt = np.logspace(np.log10(1), np.log10(1000), 200)
 # ---------------------------------------------------------------------------
 # Fig 1: charged-hadron track momentum resolution, card vs proposed (CMS+ATLAS)
 # CMS proposed (verified, arXiv:1405.6569): a=0.009/0.015/0.023, b=2.3/4.2/9.5e-4
-# ATLAS proposed (~muon-ID values, arXiv:1404.4562 Figs 17-18): ~3x smaller than card
+# ATLAS proposed = the shipped baseline card: sqrt(0.013^2+(3.6e-4 pt)^2) x eta-shape
+# (physicist notebook); per-bin effective (a,b) at the bin-representative eta-shape factor.
 # ---------------------------------------------------------------------------
 regions = [r"$|\eta|\leq0.5$", r"$0.5<|\eta|\leq1.5$", r"$1.5<|\eta|\leq2.5$"]
 card = [(0.06, 1.3e-3), (0.10, 1.7e-3), (0.25, 3.1e-3)]
 cms_prop = [(0.009, 2.3e-4), (0.015, 4.2e-4), (0.023, 9.5e-4)]
 # ATLAS inner-detector (muon-ID) plateau read from Figs 17-18 of 1404.4562
-atlas_prop = [(0.015, 3.9e-4), (0.025, 6.1e-4), (0.040, 9.0e-4)]
+atlas_prop = [(0.013, 3.6e-4), (0.0147, 4.07e-4), (0.0221, 6.12e-4)]
 
 fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.5), sharey=True)
 colors = ["#1f77b4", "#d62728", "#2ca02c"]
@@ -38,7 +39,7 @@ for ax, reg, (ac, bc), (a1, b1), (a2, b2), col in zip(
         axes, regions, card, cms_prop, atlas_prop, colors):
     ax.plot(pt, 100*momres(pt, ac, bc), color="k", ls="--", label="Delphes card")
     ax.plot(pt, 100*momres(pt, a1, b1), color="#1f77b4", label="CMS proposed (1405.6569)")
-    ax.plot(pt, 100*momres(pt, a2, b2), color="#d62728", label="ATLAS proposed (1404.4562)")
+    ax.plot(pt, 100*momres(pt, a2, b2), color="#d62728", label="ATLAS proposed (fine $\\eta$-shape)")
     ax.set_xscale("log")
     ax.set_xlabel(r"$p_\mathrm{T}$ [GeV]")
     ax.set_title(reg)

@@ -85,7 +85,7 @@ BLOCKS = [
                "which itself cites 1405.6569. Constant terms revised to match the ~1.5% central benchmark."],
        cur=[(0,0.5,0.06,1.3e-3),(0.5,1.5,0.10,1.7e-3),(1.5,2.5,0.25,3.1e-3)],
        new=[(0,0.5,0.009,2.3e-4),(0.5,1.5,0.015,4.2e-4),(1.5,2.5,0.023,9.5e-4)],
-       note="REVIEW: ~3x reduction vs stock (constant terms ~1-2.3%, slopes ~2-10e-4/GeV)."),
+       note="REVIEW: ~3x reduction vs stock (constant terms ~1-2.3%, slopes ~2-10e-4/GeV). CAVEAT (verifier): the mid/endcap slopes (4.2e-4, 9.5e-4) are read from the 90% interval; the 68% curve gives ~2.8-3.0e-4 and ~6.7e-4, and the endcap floor reads ~1.9% (not 2.3%). Kept the conservative (wider) 90% reads; adopt the 68% values if a central-value tune is preferred."),
   dict(card="CMS", module="ElectronMomentumSmearing", review=True, runc=0.15, sampling=0.028,
        source=["Electron resolution is ECAL-dominated: use sqrt(S^2/pt + C^2), NOT the tracker form.",
                "Sampling S=0.028 (2.8%/sqrt(GeV)) from the CMS ECAL test beam (JINST 2 (2007) P04004);",
