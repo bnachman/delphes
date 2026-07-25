@@ -13,12 +13,12 @@ Legend: ✅ done (real-figure overlay) · 🔸 digitized re-plot (fallback) · �
 | CMS electron | 2012.06888 Fig. 11 | ✅ | aux_overlay_onfigure_cmsel.pdf |
 | ATLAS electron | 2309.05471 Fig. 16(b) | ✅ | aux_overlay_onfigure_atlasel.pdf |
 | CMS charged-hadron | 1405.6569 (no isolated res-vs-eta fig) | n/a — detector-intrinsic, validated via CMS muon Fig. 9 (same tracker) |
-| ATLAS charged-hadron | PERF-2015-10 figaux_11a | 🔒 / 🔸 | aux_momres_overlay.pdf (digitized) |
+| ATLAS charged-hadron | **arXiv:2605.07585 Fig. 15(c)** (Run 2+3) | ⬜ todo (arXiv, doable) | supersedes PERF-2015-10; a(η)≈1.9%→4.6% |
 
 ## Tracking / ID efficiency
 | Block | Source figure | Status |
 |-------|---------------|--------|
-| ATLAS charged-hadron tracking | PUB-2015-051 Fig. 1a (user-supplied) | ✅ aux_overlay_onfigure_atlastrkeff.pdf |
+| ATLAS charged-hadron tracking | **arXiv:2605.07585 Fig. 16(a,b)** (Run 2+3, Loose WP) | ⬜ todo (arXiv; supersedes PUB-2015-051 overlay, plateau 0.91→0.85) |
 | CMS charged-hadron tracking | 1405.6569 Fig. 11 | ✅ (aux_overlay_onfigure_cmstrkeff.pdf) |
 | ATLAS muon eff | 2012.00578 | ▫ no overlay; consistency argument only (measured reco eff ~99% Loose / 95-99% Tight makes the card's flat 0.95 conservative) |
 | CMS muon eff | 1804.04528 | ▫ no overlay; consistency argument only (Loose >99% / Tight 95-99% makes the card's flat 0.95 conservative) |

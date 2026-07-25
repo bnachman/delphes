@@ -94,43 +94,45 @@ module Efficiency ChargedHadronTrackingEfficiency {
   # add EfficiencyFormula {efficiency formula as a function of eta and pt}
 
   # tracking efficiency formula for charged hadrons
-  # PROVENANCE (physicist hand-derivation, reference_ATLASUncerts.ipynb):
+  # PROVENANCE (arXiv:2605.07585, ATLAS ID Track+Vertex Reco, Run 2+3; reviewer: Ben):
   # Charged-hadron tracking efficiency, fine |eta| bins (plateau) x pt turn-on.
-  # Source: ATL-PHYS-PUB-2015-051 (Early ID Tracking Performance, 13 TeV) Fig 1a/1b (Loose).
-  # Dense-environment effects (PERF-2015-08) NOT included. Replaces the stock 2-bin 0.95/0.85.
+  # Source: arXiv:2605.07585 Fig. 16(a) (eff vs eta, Loose WP, min-bias sim) x Fig. 16(b)
+  # (eff vs pt turn-on); systematic band from Fig. 17. Central |eta|<1.5 plateau ~0.85,
+  # forward falling to ~0.67-0.72. SUPERSEDES the earlier PUB-2015-051 (0.91) hand-derivation.
+  # Dense-environment losses NOT included. Replaces the stock 2-bin 0.95/0.85.
   set EfficiencyFormula {
   ( (abs(eta) > 2.5) * (0.00) + 
-    (abs(eta) <= 0.20) * (0.910) + 
-    (abs(eta) > 0.20 && abs(eta) <= 0.40) * (0.910) + 
-    (abs(eta) > 0.40 && abs(eta) <= 0.60) * (0.910) + 
-    (abs(eta) > 0.60 && abs(eta) <= 0.80) * (0.900) + 
-    (abs(eta) > 0.80 && abs(eta) <= 1.00) * (0.890) + 
-    (abs(eta) > 1.00 && abs(eta) <= 1.20) * (0.880) + 
-    (abs(eta) > 1.20 && abs(eta) <= 1.40) * (0.870) + 
-    (abs(eta) > 1.40 && abs(eta) <= 1.60) * (0.840) + 
-    (abs(eta) > 1.60 && abs(eta) <= 1.80) * (0.800) + 
-    (abs(eta) > 1.80 && abs(eta) <= 2.00) * (0.780) + 
-    (abs(eta) > 2.00 && abs(eta) <= 2.20) * (0.780) + 
-    (abs(eta) > 2.20 && abs(eta) <= 2.40) * (0.790) + 
-    (abs(eta) > 2.40 && abs(eta) <= 2.50) * (0.730) )
+    (abs(eta) <= 0.20) * (0.850) + 
+    (abs(eta) > 0.20 && abs(eta) <= 0.40) * (0.855) + 
+    (abs(eta) > 0.40 && abs(eta) <= 0.60) * (0.855) + 
+    (abs(eta) > 0.60 && abs(eta) <= 0.80) * (0.845) + 
+    (abs(eta) > 0.80 && abs(eta) <= 1.00) * (0.835) + 
+    (abs(eta) > 1.00 && abs(eta) <= 1.20) * (0.820) + 
+    (abs(eta) > 1.20 && abs(eta) <= 1.40) * (0.810) + 
+    (abs(eta) > 1.40 && abs(eta) <= 1.60) * (0.780) + 
+    (abs(eta) > 1.60 && abs(eta) <= 1.80) * (0.750) + 
+    (abs(eta) > 1.80 && abs(eta) <= 2.00) * (0.700) + 
+    (abs(eta) > 2.00 && abs(eta) <= 2.20) * (0.720) + 
+    (abs(eta) > 2.20 && abs(eta) <= 2.40) * (0.700) + 
+    (abs(eta) > 2.40 && abs(eta) <= 2.50) * (0.670) )
   *
   ( (pt <= 0.40) * (0.00) + 
-    (pt > 0.40 && pt <= 0.55) * (0.8667) + 
-    (pt > 0.55 && pt <= 0.65) * (0.9333) + 
-    (pt > 0.65 && pt <= 0.75) * (0.9444) + 
-    (pt > 0.75 && pt <= 0.85) * (0.9556) + 
-    (pt > 0.85 && pt <= 0.95) * (0.9556) + 
-    (pt > 0.95 && pt <= 1.05) * (0.9556) + 
-    (pt > 1.05 && pt <= 1.15) * (0.9667) + 
-    (pt > 1.15 && pt <= 1.25) * (0.9667) + 
-    (pt > 1.25 && pt <= 1.35) * (0.9667) + 
-    (pt > 1.35 && pt <= 1.45) * (0.9667) + 
-    (pt > 1.45 && pt <= 1.75) * (0.9778) + 
-    (pt > 1.75 && pt <= 2.25) * (0.9778) + 
-    (pt > 2.25 && pt <= 2.75) * (0.9778) + 
-    (pt > 2.75 && pt <= 3.25) * (0.9889) + 
-    (pt > 3.25 && pt <= 3.75) * (0.9889) + 
-    (pt > 3.75 && pt <= 4.50) * (0.9889) + 
+    (pt > 0.40 && pt <= 0.55) * (0.8750) + 
+    (pt > 0.55 && pt <= 0.65) * (0.9375) + 
+    (pt > 0.65 && pt <= 0.75) * (0.9750) + 
+    (pt > 0.75 && pt <= 0.85) * (0.9938) + 
+    (pt > 0.85 && pt <= 0.95) * (1.0000) + 
+    (pt > 0.95 && pt <= 1.05) * (1.0063) + 
+    (pt > 1.05 && pt <= 1.15) * (1.0000) + 
+    (pt > 1.15 && pt <= 1.25) * (1.0000) + 
+    (pt > 1.25 && pt <= 1.35) * (1.0000) + 
+    (pt > 1.35 && pt <= 1.45) * (1.0000) + 
+    (pt > 1.45 && pt <= 1.75) * (1.0000) + 
+    (pt > 1.75 && pt <= 2.25) * (1.0000) + 
+    (pt > 2.25 && pt <= 2.75) * (1.0000) + 
+    (pt > 2.75 && pt <= 3.25) * (1.0000) + 
+    (pt > 3.25 && pt <= 3.75) * (1.0000) + 
+    (pt > 3.75 && pt <= 4.50) * (1.0000) + 
     (pt > 4.50) * (1.0) )
   }
 }
@@ -186,19 +188,21 @@ module MomentumSmearing ChargedHadronMomentumSmearing {
   # set ResolutionFormula {resolution formula as a function of eta and pt}
 
   # resolution formula for charged hadrons
-  # PROVENANCE (physicist hand-derivation, reference_ATLASUncerts.ipynb):
+  # PROVENANCE (arXiv:2605.07585, ATLAS ID Track+Vertex Reco, Run 2+3; reviewer: Ben):
   # Charged-hadron track momentum resolution = sqrt(a^2+(b*pt)^2) * etashape(eta).
-  # pt-shape a=0.013, b=3.6e-4 from the ATLAS ID TDR (via arXiv:1703.10485 Eq.2);
-  # fine |eta| shape + per-bin uncertainty from ATLAS PERF-2015-10 figaux_11a.
+  # a(eta) from arXiv:2605.07585 Fig. 15(c) (relative q/pt resolution vs eta, Final Tracks,
+  # ttbar <mu> in [0,80], pt-averaged): ~1.9% central rising to ~4.6% at |eta|=2.5.
+  # b=3.6e-4 (high-pt slope) is NOT constrained by that pt-averaged figure; carried over
+  # from the ATLAS ID parametrization 1404.4562 Eq.(2). SUPERSEDES the earlier muon-ID-based
+  # a=0.013 (PERF-2015-10) -- charged hadrons (soft spectrum + pileup) resolve worse than muon-ID tracks.
   set ResolutionFormula {
-  (pt > 0.1) * sqrt(0.013^2 + pt^2*0.00036^2)
+  (pt > 0.1) * sqrt(0.019^2 + pt^2*0.00036^2)
   *
-  ( (abs(eta) <= 0.63) * (1.0000) + 
-    (abs(eta) > 0.63 && abs(eta) <= 1.05) * (1.0751) + 
-    (abs(eta) > 1.05 && abs(eta) <= 1.46) * (1.1272) + 
-    (abs(eta) > 1.46 && abs(eta) <= 1.89) * (1.2601) + 
-    (abs(eta) > 1.89 && abs(eta) <= 2.31) * (1.6705) + 
-    (abs(eta) > 2.31 && abs(eta) <= 2.50) * (2.4046) )
+  ( (abs(eta) <= 0.50) * (1.0000) + 
+    (abs(eta) > 0.50 && abs(eta) <= 1.00) * (1.1579) + 
+    (abs(eta) > 1.00 && abs(eta) <= 1.50) * (1.4737) + 
+    (abs(eta) > 1.50 && abs(eta) <= 2.00) * (1.9474) + 
+    (abs(eta) > 2.00 && abs(eta) <= 2.50) * (2.4211) )
   }
 }
 

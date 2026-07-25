@@ -30,8 +30,10 @@ pt = np.logspace(np.log10(1), np.log10(1000), 200)
 regions = [r"$|\eta|\leq0.5$", r"$0.5<|\eta|\leq1.5$", r"$1.5<|\eta|\leq2.5$"]
 card = [(0.06, 1.3e-3), (0.10, 1.7e-3), (0.25, 3.1e-3)]
 cms_prop = [(0.009, 2.3e-4), (0.015, 4.2e-4), (0.023, 9.5e-4)]
-# ATLAS inner-detector (muon-ID) plateau read from Figs 17-18 of 1404.4562
-atlas_prop = [(0.013, 3.6e-4), (0.0147, 4.07e-4), (0.0221, 6.12e-4)]
+# ATLAS a(eta) from arXiv:2605.07585 Fig 15(c) (Run 2+3 charged-hadron q/pt res,
+# pt-averaged): ~1.9% central, ~2.8% at 1.0-1.5, ~4.6% at 2.0-2.5. Slope b=3.6e-4
+# carried over from the ID form (1404.4562); the pt-averaged figure fixes only a.
+atlas_prop = [(0.019, 3.6e-4), (0.028, 3.6e-4), (0.046, 3.6e-4)]
 
 fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.5), sharey=True)
 colors = ["#1f77b4", "#d62728", "#2ca02c"]
@@ -39,7 +41,7 @@ for ax, reg, (ac, bc), (a1, b1), (a2, b2), col in zip(
         axes, regions, card, cms_prop, atlas_prop, colors):
     ax.plot(pt, 100*momres(pt, ac, bc), color="k", ls="--", label="Delphes card")
     ax.plot(pt, 100*momres(pt, a1, b1), color="#1f77b4", label="CMS proposed (1405.6569)")
-    ax.plot(pt, 100*momres(pt, a2, b2), color="#d62728", label="ATLAS proposed (fine $\\eta$-shape)")
+    ax.plot(pt, 100*momres(pt, a2, b2), color="#d62728", label="ATLAS proposed (2605.07585)")
     ax.set_xscale("log")
     ax.set_xlabel(r"$p_\mathrm{T}$ [GeV]")
     ax.set_title(reg)

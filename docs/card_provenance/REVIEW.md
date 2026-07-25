@@ -60,8 +60,8 @@ confirming the Lead's verdict is defensible against the source. Same notation.
 
 | Block | Lead | 2nd | Pri | Source locator (see findings_summary.md) | Overlay | Ben | Elham |
 |-------|------|-----|-----|------------------------------------------|---------|-----|-------|
-| ChargedHadronMomRes | Ben | Elham | 🔴 | 1404.4562 Eq.(2), Figs.17–18 (ID form); fine-η form in `apply_user_tracking.py` | 🔸 aux_momres_overlay | ⬜ pending | ⬜ pending |
-| ChargedHadronTrackingEff | Ben | Elham | 🔴 | 1602.01633 Fig.2(c,d); shipped plateau PUB-2015-051 Fig.1a | ✅ atlastrkeff | ⬜ pending | ⬜ pending |
+| ChargedHadronMomRes | Ben | Elham | 🔴 | **arXiv:2605.07585 Fig.15(c)** (Run 2+3; a(η)≈1.9%→4.6%); slope b from 1404.4562 | ⬜ todo (2605.07585 Fig.15c) | ✏️ source→2605.07585 (BPN) | ⬜ pending |
+| ChargedHadronTrackingEff | Ben | Elham | 🔴 | **arXiv:2605.07585 Fig.16(a,b)** (Run 2+3, Loose WP; 0.85 central) + Fig.17 syst | ⬜ todo (2605.07585 Fig.16) | ✏️ source→2605.07585 (BPN) | ⬜ pending |
 | MuonTrackingEff | Ben | Elham | 🟢 | 1603.05598 / 2012.00578 (reco eff ~99% Loose) | — (consistency) | ⬜ pending | ⬜ pending |
 | MuonIDEff | Ben | Elham | 🟠 | 1603.05598 / 2012.00578 — card 0.95 vs Medium-WP 0.98 (WP-dependent) | — | ⬜ pending | ⬜ pending |
 | BTagging | Ben | Elham | 🟠 | 1907.05120 Table 4 + Fig.8/10 (70% MV2 WP); high-pT falloff 0.086 | ✅ atlasbtag | ⬜ pending | ⬜ pending |
@@ -109,6 +109,8 @@ discussed — escalate a contentious block to its own GitHub issue if the thread
 gets long.
 
 ## Open inputs still needed (don't block review)
-- ATLAS PERF-2015-10 figaux_11a — CERN host egress-blocked; paste the PNG to
-  finish that overlay (see `NEEDS_FROM_USER.md`).
+- ~~ATLAS PERF-2015-10 figaux_11a~~ — **no longer needed**: the ATLAS charged-hadron
+  momentum-resolution and tracking-efficiency blocks are now sourced from
+  arXiv:2605.07585 (Figs. 15c / 16), which is on arXiv and fully accessible. The
+  overlays can be produced here from that paper (todo).
 - CMS b-tag DeepCSV overlay (1712.07158 Fig.17) — page render to retry.

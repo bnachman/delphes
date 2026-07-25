@@ -34,6 +34,20 @@ Non-blocking notes: (a) Fig.8 shows b-eff vs pT only, so the c-coefficient locat
 
 ## ATLAS.ChargedHadronMomRes
 
+> **SOURCE UPDATE (2026-07, reviewer Ben — supersedes the analysis below):**
+> The authoritative source for this block is now **arXiv:2605.07585** (ATLAS,
+> "Track and Vertex Reconstruction with the ATLAS Inner Detector", CERN-EP-2026-096,
+> Run 2+3), **Fig. 15(c)** — relative q/p_T resolution vs η for Final Tracks (tt̄,
+> ⟨μ⟩∈[0,80], averaged over the full p_T spectrum). Read values (Final Tracks):
+> **a(η) ≈ 0.019 (|η|<0.5), 0.022 (0.5–1.0), 0.028 (1.0–1.5), 0.037 (1.5–2.0),
+> 0.046 (2.0–2.5)** — i.e. ~1.9% central rising to ~4.6% forward. Because the tt̄
+> track spectrum is soft, this p_T-averaged value primarily fixes the constant
+> term a(η); the high-p_T slope b is **not** constrained here and is carried over
+> as b=3.6×10⁻⁴ from the ATLAS ID form (1404.4562 Eq.2). This supersedes the
+> earlier muon-ID-based a=0.013 — charged hadrons (soft + pileup) resolve worse
+> than clean muon-ID tracks. Applied in the baseline/uncertainty cards via
+> `apply_user_tracking.py`. The Run-1 analysis below is retained for history.
+
 **Verification:** ACCEPT_WITH_CORRECTIONS  
 
 **Verifier corrections:** Two descriptive (non-coefficient) errors in source_summary; no coefficient value, locator, or verdict needs to change.
@@ -63,6 +77,21 @@ All six (a,b) plot-read values, the 5%/10% material statement, the 'a_ID set to 
 | b_charged_eta15_25 (intrinsic/slope term, 1.5<|eta|<=2.5) | `3.1e-3 (GeV^-1)` | bID(endcap) ~ 9e-4 GeV^-1 (plot-read from sqrt(0.185^2-0.033^2)/200); No-TRT uses pt/tan^2(theta) form per Eq.(2) | shaded band ~ +/-15-20% relative in end-cap | **card-pessimistic** | Flag for review. Card b=3.1e-3 is ~3x the muon-ID end-cap value ~9e-4. If tracking ID, revise toward ~9e-4 to 1e-3 GeV^-1; but for hadrons no source gives 3.1e-3. Also note source uses pt/tan^2(theta) (not pt) for |eta|>2.0, which the card's pure-pt form does not capture. |
 
 ## ATLAS.ChargedHadronTrackingEff
+
+> **SOURCE UPDATE (2026-07, reviewer Ben — supersedes the analysis below):**
+> The authoritative source for this block is now **arXiv:2605.07585** (ATLAS,
+> "Track and Vertex Reconstruction with the ATLAS Inner Detector", Run 2+3),
+> **Fig. 16(a)** (efficiency vs η, Loose WP, minimum-bias sim) and **Fig. 16(b)**
+> (efficiency vs p_T turn-on), with the systematic band from **Fig. 17**
+> (material / physics-list variations). Read values (Loose WP): central **|η|<1.5
+> plateau ≈ 0.85**, falling through 0.78 (|η|=1.5) to ~0.67–0.72 forward (local
+> bump near |η|=2.0 from extra active layers); p_T turn-on rises from ~0.70 at
+> 0.5 GeV to the ~0.80 (η-integrated) plateau by ~1 GeV. Systematic ~0.5% central
+> rising to ~2% forward. This supersedes the earlier PUB-2015-051 hand-derivation
+> (0.91 central) — the newer paper gives a lower, Run-2+3-consistent Loose-WP
+> efficiency. Applied in the cards via `apply_user_tracking.py`. Note the
+> Delphes charged-hadron efficiency should map to the Loose WP (Tight Primary is
+> ~5–10% lower). The Run-1 analysis below is retained for history.
 
 **Verification:** ACCEPT_WITH_CORRECTIONS  
 
